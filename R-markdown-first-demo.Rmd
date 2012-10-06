@@ -1,4 +1,5 @@
 # A minimal R Markdown example
+# R Markdown最小示例
 
 A quote （引言）:
 
@@ -19,7 +20,7 @@ A _paragraph_ here. A code chunk below (remember the three backticks):
 
 ```{r}
 1+1
-.4-.7+.3 # what? it is not zero!
+.4-.7+.3 # what? it is not zero! （由于浮点数计算原因）
 ```
 
 ## graphics

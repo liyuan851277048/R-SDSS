@@ -10,9 +10,12 @@ To compile me, run this in R:
 为了使用，请在R命令行下运行：
 
     library(knitr)
-    knit('001-minimal.Rmd')
+    knit2html('R-markdown-first-demo.Rmd')
+    library(markdown)
+    markdownToHTML('R-markdown-first-demo.md','R-markdown-first-demo.html')
 
-See [output here](https://github.com/yihui/knitr-examples/blob/master/001-minimal.md).
+
+See [output here](http://cvprstudio.sandisk.com/files/R-SDSS/R-markdown-first-demo.html).
 
 ## code chunks
 

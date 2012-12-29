@@ -3,7 +3,7 @@
     {
         "host": "cvprstudio",
 
-        "username": "username",
+        "username": "username", # fill your user name
         "password": "password",
 
         "path": "~/R-SDSS",

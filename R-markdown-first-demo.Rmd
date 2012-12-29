@@ -53,6 +53,13 @@ You can write code within other elements, e.g. a list
     ```
 2. bar is better
 
+## FTP sync
+
+You can setting up a FTP sync by modify the file ftpsync.settings in Sublime Text 2 Editor, so it enable you to modify the file in local but upload file at the same time to remote cvprstudio server.
+
+Before that you should firstly setting up the right user and password in ftpsync.settings.
+
+
 ## conclusion
 
 Nothing fancy. You are ready to go. When you become picky, go to the [knitr website](http://yihui.name/knitr/).

@@ -1,7 +1,7 @@
 {
-    "default":  // Used for Sublime Text 2 with FTPSync package
+    "cvprstudio":  // Used for Sublime Text 2 with FTPSync package
     {
-        "host": "cvprstudio",
+        "host": "cvprstudio.sandisk.com",
 
         "username": "username", # fill your user name
         "password": "password",
@@ -10,6 +10,8 @@
 
         "upload_on_save": true,
         "download_on_open": false,
-        "overwrite_newer_prevention": true
+        "overwrite_newer_prevention": false,
+
+        "delayed": "0"
     }
 }

@@ -48,5 +48,6 @@ G <- cbind(A[,1],A[,2],A[,4],A[,5]); G
 构造一个向量x，向量是由五个1，三个2，四个3，二个4构成，注意用到rep()函数
 
 ```{r}
-x=c(rep(1,5),rep(2,3),rep(3,4),rep(4,2)); x
+# Better solution than c(rep(1,5),rep(2,3),rep(3,4),rep(4,2))
+x=rep(1:4, c(5, 3, 4, 2)); x
 ```

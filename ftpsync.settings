@@ -10,8 +10,6 @@
 
         "upload_on_save": true,
         "download_on_open": false,
-        "overwrite_newer_prevention": false,
-
-        "delayed": "0"
+        "overwrite_newer_prevention": false
     }
 }

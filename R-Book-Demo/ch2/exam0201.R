@@ -1,4 +1,4 @@
-# Example 2.1 in Page 66
+# Example 2.1 in Page 66 in PDF, 49 in Paper version
 
 # 输入体重数据
 X1<-c(35, 40, 40, 42, 37, 45, 43, 37, 44, 42, 41, 39)

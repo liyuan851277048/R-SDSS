@@ -89,3 +89,34 @@ solve(h)
 eigen(h)
 ```
 
+## 2.5 读入数据到数据框
+
+```{r}
+num=c(1:5)
+name=c('张三','李四','王五','赵六','丁一')
+sex=c('女','男','女','男','女')
+age=c(14,15,16,14,15)
+height=c(156,165,157,162,159)
+weight=c(42.0,49.0,41.5,52.0,45.5)
+stu=data.frame(num, name, sex, age, height, weight)
+stu
+```
+
+## 2.6 数据框数据导入导出
+
+### 1. 写出数据框数据
+```{r}
+write.table(stu, 'ch2_6_stu.txt')
+```
+
+### 2. 读入数据框数据
+
+```{r}
+df=read.table('ch2_6_stu.txt', header=TRUE)
+```
+
+### 3. 数据框数据导出Excel
+
+```{r}
+write.csv(df, 'ch2_6_stu.csv')
+```

@@ -1,4 +1,4 @@
-# Define a list
+# List introduced in Page 114 PDF version
 Lst<-list(
      Name=c("Alice", "Becka", "James", "Jeffrey", "John"),
      Sex=c("F", "F", "M", "M", "M"),

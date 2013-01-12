@@ -9,7 +9,7 @@ data_outline <- function(x){
    uss <- sum(x^2) # 样本未校正平方和
    R <-  max(x)-min(x) # 样本极差
    R1 <- quantile(x,3/4)-quantile(x,1/4) # 四分位差/半极差
-   sm <- s/sqrt(n) # 样本标准误差
+   sm <- s/sqrt(n) # 样本标准误
    g1 <- n/((n-1)*(n-2))*sum((x-m)^3)/s^3 # 偏度系数
    g2 <- ((n*(n+1))/((n-1)*(n-2)*(n-3))*sum((x-m)^4)/s^4
           - (3*(n-1)^2)/((n-2)*(n-3)))    # 峰度系数

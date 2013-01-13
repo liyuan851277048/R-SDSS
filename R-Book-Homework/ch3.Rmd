@@ -12,3 +12,28 @@ w <- as.vector(unlist(read.table("exec0301.data"))); w
 source("../R-Book-Demo/ch3/data_outline.R", echo=TRUE, max.deparse.length=3e3)
 data_outline(w)
 ```
+
+## 3.5 小白鼠伤寒杆菌实验数据的箱线图
+
+输入数据
+```{r}
+dm <- data.frame(
+  J1=c(2, 4,3,2, 4,7, 7, 2, 2,5, 4,NA),
+  J2=c(5, 6,8,5,10,7,12,12, 6,6,NA,NA),
+  J3=c(7,11,6,6, 7,9, 5, 5,10,6, 3,10)
+); t(dm)
+```
+
+使用boxplot画箱线图
+```{r}
+boxplot(dm$J1, dm$J2, dm$J3, names=c('J1', 'J2','J3'))
+```
+
+使用plot画箱线图
+```{r}
+plot(factor(c(rep(1,length(dm$J1)), rep(2,length(dm$J2)), rep(3,length(dm$J3)))), unlist(dm))
+```
+
+结论，J1菌型平均存活明显短于J2,J3菌型。
+
+## 3.6 学生的四项指标散点图

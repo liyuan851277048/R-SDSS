@@ -38,7 +38,31 @@ plot(factor(c(rep(1,length(dm$J1)), rep(2,length(dm$J2)), rep(3,length(dm$J3))))
 
 ## 3.7 学生的四项指标散点图
 
+读入数据
 ```{r}
 # 从exam0203.txt直接读取数据，有表头
 dt <- read.table("../R-Book-Demo/ch2/exam0203.txt", head=TRUE); dt
+```
+
+体重对于身高的散点图
+```{r fig.height=5}
+plot(dt$Weight,dt$Height,xlab="Weight",ylab="Height") 
+```
+
+不同性别情况下，体重对于身高的散点图
+```{r fig.height=5}
+coplot(dt$Weight ~ dt$Height | dt$Sex,
+       xlab="Weight",ylab="Height")
+```
+
+不同年龄段下，体重对于身高的散点图
+```{r}
+coplot(dt$Weight ~ dt$Height | dt$Age,
+       xlab="Weight",ylab="Height")
+```
+
+不同性别，不同年龄段下，体重对于身高的散点图
+```{r fig.width=8}
+coplot(dt$Weight ~ dt$Height | dt$Age + dt$Sex,
+       xlab="Weight",ylab="Height")
 ```

@@ -34,6 +34,11 @@ boxplot(dm$J1, dm$J2, dm$J3, names=c('J1', 'J2','J3'))
 plot(factor(c(rep(1,length(dm$J1)), rep(2,length(dm$J2)), rep(3,length(dm$J3)))), unlist(dm))
 ```
 
-结论，J1菌型平均存活明显短于J2,J3菌型。
+结论，J1菌型平均存活天数明显短于J2,J3菌型。
 
-## 3.6 学生的四项指标散点图
+## 3.7 学生的四项指标散点图
+
+```{r}
+# 从exam0203.txt直接读取数据，有表头
+dt <- read.table("../R-Book-Demo/ch2/exam0203.txt", head=TRUE); dt
+```

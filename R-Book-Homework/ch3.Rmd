@@ -94,6 +94,29 @@ contour(x,y,z,
 ```
 
 函数的三维网格曲面图
-```{r}
+```{r fig.width=8}
 persp(x, y, z, theta=-30, phi=25, col = "yellow")
 ```
+
+## 3.10 求职者问题的星图
+
+读入求职者数据
+```{r}
+pushd=getwd()
+setwd("../R-Book-Demo/ch3")
+source("group.R", echo=TRUE)
+setwd(pushd)
+```
+
+以15项自变量画星图
+```{r  fig.height=8,fig.width=8}
+stars(rt[1:15], draw.segments=TRUE)
+```
+
+以G1,G2,G3,G4,G5为轴画星图
+```{r  fig.height=8,fig.width=8}
+stars(rt[16:20], draw.segments=TRUE)
+```
+
+由图可看到明显7,8,9,2,39,40较佳，但是还是没有按照sort结果精确。
+

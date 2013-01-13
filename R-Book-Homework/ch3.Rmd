@@ -109,14 +109,28 @@ setwd(pushd)
 ```
 
 以15项自变量画星图
-```{r  fig.height=8,fig.width=8}
+```{r fig.height=8,fig.width=8}
 stars(rt[1:15], draw.segments=TRUE)
 ```
 
 以G1,G2,G3,G4,G5为轴画星图
-```{r  fig.height=8,fig.width=8}
+```{r fig.height=8,fig.width=8}
 stars(rt[16:20], draw.segments=TRUE)
 ```
 
 由图可看到明显7,8,9,2,39,40较佳，但是还是没有按照sort结果精确。
 
+## 3.11 求职者问题的调和曲线图
+
+定义调和曲线函数
+```{r}
+pushd=getwd()
+setwd("../R-Book-Demo/ch3")
+source("unison.R", echo=TRUE, max.deparse.length=3e3)
+setwd(pushd)
+```
+
+以G1,G2,G3,G4,G5为自变量画调和曲线图
+```{r fig.height=8,fig.width=8}
+unison(rt[16:20])
+```

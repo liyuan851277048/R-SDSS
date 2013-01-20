@@ -38,19 +38,27 @@ qqline(w)
 ```
 
 
-3.3茎叶图 箱线图 五位总括
+## 3.3 女生血清蛋白的茎叶图、箱线图及五数总括
+
 ```{r}
 stem(w, scale=1)
 boxplot(w,outline=F)
 fivenum(w,na.rm=F)
 ```
 
-3.4
+## 3.4 正态分布检验
+
+W检验方法
 ```{r}
 shapiro.test(w)
+```
 
+Kolmogorov-Smirnov检验方法
+```{r}
 ks.test(w,"pnorm",mean(w),sd(w))
 ```
+
+p值大于0.05，故数据可以认为是正态分布的。
 
 3.9
 ```{r}

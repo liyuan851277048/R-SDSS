@@ -16,10 +16,13 @@ print(dow, digits=4)
 
 ## 3.2 女生血清蛋白分析图
 
-直方图及密度估计曲线
+直方图及密度估计曲线（绿色）以及正态分布曲线（红色）
+
 ```{r}
 hist(w,20,col="blue",freq=F)
-lines(density(w),col="red")
+lines(density(w), lwd=2, col="green")
+x <- min(w):max(w)
+lines(x, dnorm(x,mean(w),sd(w)),col="red")
 ```
 
 经验分布

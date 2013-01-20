@@ -10,14 +10,15 @@ w <- as.vector(unlist(read.table("exec0301.data"))); w
 计算均值(mean)、方差标准差(std_dev)、极差(R)、标准误(sm)、变异系数(cv)、偏度(Skewness)、峰度(Kurtosis)。
 ```{r}
 source("../R-Book-Demo/ch3/data_outline.R", echo=TRUE, max.deparse.length=3e3)
-data_outline(w)
+dow <- data_outline(w)
+print(dow, digits=4)
 ```
 
-## 3.2
+## 3.2 女生血清蛋白分析图
 
-直方图 密度线
+直方图及密度估计曲线
 ```{r}
-hist(w,col="blue",freq=F)
+hist(w,20,col="blue",freq=F)
 lines(density(w),col="red")
 ```
 

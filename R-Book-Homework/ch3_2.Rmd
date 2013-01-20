@@ -75,29 +75,29 @@ cor.test(dt$Height,dt$Weight,methods = "Pearson")
 
 因为p-value < 0.05，所以相关。
 
-6.1
+## 6.1 最大积雪深度与灌溉面积
 
+散点图及相关性
 ```{r}
-x=c(5.1, 3.5, 7.1, 6.2, 8.8, 7.8, 4.5, 5.6, 8.0, 6.4)
+x=c( 5.1, 3.5, 7.1, 6.2, 8.8, 7.8, 4.5, 5.6, 8.0, 6.4)
 y=c(1907,1287,2700,2373,3260,3000,1947,2273,3113,2493)
 plot(x,y)
 cor.test(x,y,methods="Pearson")
 ```
-p-value = 6.33e-08 <0.05 所以相关
+因为p-value < 0.05 所以相关。
 
-2)
+求Y关于X的一元线性回归方程
 ```{r}
-fm61<-data.frame(x,y)
-lm.sol<-lm(y~x,data=fm61)
+d61 <- data.frame(x,y)
+lm.sol<-lm(y~x,data=d61)
 summary(lm.sol)
 ```
-y=141+364.2x
+回归方程：y=141+364.2x
 
-3)
-通过显著性检验
+因为p-value < 0.05，所以认为通过显著性检验。
 
-4)
+预测今年数据
 ```{r}
 new<- data.frame(x=7)
-predict(lm.sol,new,interval="prediction")
+predict(lm.sol,new,interval="prediction",level=0.95)
 ```

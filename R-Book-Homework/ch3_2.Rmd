@@ -16,7 +16,7 @@ print(dow, digits=4)
 
 ## 3.2 女生血清蛋白分析图
 
-直方图及密度估计曲线（绿色）以及正态分布曲线（红色）
+直方图及密度估计曲线（绿色）以及正态密度曲线（红色）
 
 ```{r}
 hist(w,20,col="blue",freq=F)
@@ -25,13 +25,18 @@ x <- min(w):max(w)
 lines(x, dnorm(x,mean(w),sd(w)),col="red")
 ```
 
-经验分布
+经验分布曲线与正态分布曲线（红色）
 ```{r}
 plot(ecdf(w),verticals=T,do.p=F)
-lines(w,pnorm(w,mean(w),sd(w),log.p=F))
+lines(x,pnorm(x,mean(w),sd(w),log.p=F), col="red")
+```
+
+正态QQ图和相应直线
+```{r}
 qqnorm(w)
 qqline(w)
 ```
+
 
 3.3茎叶图 箱线图 五位总括
 ```{r}

@@ -1,0 +1,79 @@
+# 第三周作业
+
+## 3.1 女生血清蛋白分析
+
+读入数据
+```{r}
+w <- as.vector(unlist(read.table("exec0301.data"))); w
+```
+
+计算均值(mean)、方差标准差(std_dev)、极差(R)、标准误(sm)、变异系数(cv)、偏度(Skewness)、峰度(Kurtosis)。
+```{r}
+source("../R-Book-Demo/ch3/data_outline.R", echo=TRUE, max.deparse.length=3e3)
+data_outline(w)
+```
+
+## 3.2
+
+直方图 密度线
+```{r}
+hist(w,col="blue",freq=F)
+lines(density(w),col="red")
+```
+
+经验分布
+```{r}
+plot(ecdf(w),verticals=T,do.p=F)
+lines(w,pnorm(w,mean(w),sd(w),log.p=F))
+qqnorm(w)
+qqline(w)
+```
+
+3.3茎叶图 箱线图 五位总括
+```{r}
+stem(w, scale=1)
+boxplot(w,outline=F)
+fivenum(w,na.rm=F)
+```
+
+3.4
+```{r}
+shapiro.test(w)
+
+ks.test(w,"pnorm",mean(w),sd(w))
+```
+
+3.9
+```{r}
+height=c(56.5, 65.3, 64.3, 56.3, 59.8,     66.5, 51.3, 62.5, 62.8, 69.0,            63.5, 67.0, 57.3, 62.5, 59.0,            72.0, 64.8, 57.5, 66.5)
+weight=c(84.0, 98.0, 90.0, 77.0, 84.5,     112.0, 50.5, 112.5, 102.5, 112.5,    102.5, 133.0, 83.0, 84.0, 99.5,     150.0, 128.0, 85.0, 112.0)
+cor.test(height,weight,methods = "Pearson")
+```
+p-value = 7.887e-07 <0.05 所以相关
+
+6.1
+
+```{r}
+x=c(5.1, 3.5, 7.1, 6.2, 8.8, 7.8, 4.5, 5.6, 8.0, 6.4)
+y=c(1907,1287,2700,2373,3260,3000,1947,2273,3113,2493)
+plot(x,y)
+cor.test(x,y,methods="Pearson")
+```
+p-value = 6.33e-08 <0.05 所以相关
+
+2)
+```{r}
+fm61<-data.frame(x,y)
+lm.sol<-lm(y~x,data=fm61)
+summary(lm.sol)
+```
+y=141+364.2x
+
+3)
+通过显著性检验
+
+4)
+```{r}
+new<- data.frame(x=7)
+predict(lm.sol,new,interval="prediction")
+```

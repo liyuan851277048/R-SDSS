@@ -1,18 +1,5 @@
 # 第三章 数据描述性分析 习题
 
-## 3.1 女生血清蛋白分析
-
-读入数据
-```{r}
-w <- as.vector(unlist(read.table("exec0301.data"))); w
-```
-
-计算均值(mean)、方差标准差(std_dev)、极差(R)、标准误(sm)、变异系数(cv)、偏度(Skewness)、峰度(Kurtosis)。
-```{r}
-source("../R-Book-Demo/ch3/data_outline.R", echo=TRUE, max.deparse.length=3e3)
-data_outline(w)
-```
-
 ## 3.5 小白鼠伤寒杆菌实验数据的箱线图
 
 输入数据

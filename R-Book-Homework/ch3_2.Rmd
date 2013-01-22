@@ -64,7 +64,7 @@ p值大于0.05，故数据可以认为是正态分布的。
 
 读入数据
 ```{r}
-# 从exam0203.txt直接读取数据，有表头
+# Read from exam0203.txt
 dt <- read.table("../R-Book-Demo/ch2/exam0203.txt", head=TRUE); dt
 ```
 

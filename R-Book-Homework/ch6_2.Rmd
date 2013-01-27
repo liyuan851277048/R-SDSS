@@ -27,3 +27,12 @@ detach("package:xtable", unload=TRUE)
 lm.sol <- lm(y ~ x1 + x2 + x3, data = df)
 summary(lm.sol)
 ```
+
+故y=43.65+1.785*x1-0.083*x2+0.161*x3为所求多元线性回归方程。
+
+#### 方程显著性分析
+
+虽然R-squared值0.549不高，但由于p-value=0.00923<0.05，仍然可认为显著。
+
+#### 变量的逐步回归分析
+

@@ -1,7 +1,6 @@
 library(shiny)
-library(datasets)
-library("DBI")
-library("ROracle")
+library(DBI)
+library(ROracle)
 
 drv <- dbDriver("Oracle")
 con <- dbConnect(drv, user  =  "system",  password="a",  db="srcdb")

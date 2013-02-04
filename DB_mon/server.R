@@ -5,7 +5,7 @@ library("ROracle")
 
 drv <- dbDriver("Oracle")
 con <- dbConnect(drv, user  =  "system",  password="a",  db="srcdb")
-qDF <- dbSendQuery(con, "select file_id,file_name,bytes from dba_data_files")
+qDF <- dbSendQuery(con, "select file_name,bytes from dba_data_files")
 dDF <- fetch(qDF)
 qDept <- dbSendQuery(con, "select * from scott.dept")
 dDept <- fetch(qDept)
@@ -33,5 +33,8 @@ shinyServer(function(input, output) {
     #head(datasetInput())
     datasetInput()
   })
-  
+
+  output$main_plot <- reactivePlot(function() {    
+    barplot(dDF$BYTES, cex.names=c(dDF$FILE_NAME), horiz=TRUE)
+  })  
 })

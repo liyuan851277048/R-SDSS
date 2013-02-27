@@ -1,13 +1,12 @@
 # 第五次作业
 
-## 维基百科可视化
+## 维基百科可视化山寨
 
 #### 输入数据：
 ```{r}
-opar <- par(no.readonly=TRUE)
-a <- read.table(file("graph_1.dat"), header = TRUE, sep=":"); 
+a <- read.table(file("graph_1.dat"), header = TRUE, sep=":");
 men <- levels(a$name) # 版本发布人
-total <- max(a$wc) # 最大版本内容
+total <- max(a$wc)    # 最大版本内容
 ```
 
 #### 绘图
@@ -81,6 +80,5 @@ for(m in men){
   text(x,y,m,col=grep(m, men),adj = c(0, NA))
   y <- y - h
 }
-par(opar)
 ```
 

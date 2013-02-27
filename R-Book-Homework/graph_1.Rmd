@@ -80,9 +80,9 @@ for(i in 2:width){
 
 # 输出版本发布人姓名
 x <- -0.5
-y <- 5
-h <- 1.5
-for(m in men){
+y <- 2
+h <- 0.9
+for(m in c("mary", "suzanne", "martin")){
   text(x,y,m,col=grep(m, men),adj = c(0, NA))
   y <- y - h
 }

@@ -35,7 +35,7 @@ text(1, height+1 ,paste("version",1),col="white")
 # 开始绘图
 for(i in 2:width){
   # 分解数据：其中ac_men表示版本人，ac_word表示版本内容长度，ac_sc表示版本的历史修改步长
-  # 技巧：a23中（0，1）2个数字在程序中做了特殊处理 0 表示删除，1 表示新增
+  # 技巧：ac_sc中（0，1）2个数字在程序中做了特殊处理 0 表示删除，1 表示新增
 
   ac <- strsplit(as.character(a$cont[i]),";")
   ac_men <- strsplit(ac[[1]][1],",")[[1]]
@@ -48,10 +48,12 @@ for(i in 2:width){
   py2 <- height
   text(i, height+1 ,paste("version",i),col="white")
   j <- 1
-  while(j <= length(ac_men)){
-    if(ac_sc[j] == 0){
+  while(j <= length(ac_men)) {
+    if(ac_sc[j] == 0) {
+      # 当版本中存在删除的内容时，不绘制这部分内容的背景图，即不绘制多边形 ，通过移动Y坐标的值来达到。
       py2 <- py2 - ac_word[j]
-    }else{
+    }
+    else {
       x <- c(i,i)
       y <- c(hy2, hy1 <- hy2 - ac_word[j])
       lines(x,y, col= which(men == ac_men[j]))
@@ -61,14 +63,13 @@ for(i in 2:width){
         xx <- c(i,i,i-1,i-1,i)
         yy <- c(hy2 ,hy1 ,py1 ,py2 ,hy2)
         col2 <- color[which(men == ac_men[j])]
-        col3 <- as.integer(paste('0x',substr(col2, 8,9),sep='')) - color_step*i
-        col2 <- paste(substr(col2, 1,7),toupper(as.hexmode(col3)),sep="")
+        col3 <- as.integer(paste('0x', substr(col2,8,9), sep='')) - color_step*i
+        col2 <- paste(substr(col2,1,7), toupper(as.hexmode(col3)), sep="")
 
         polygon(xx, yy, col=col2, border=NA)
         py2 <- py1
       }
       hy2 <- hy1
-
     }
     j <- j + 1
   }

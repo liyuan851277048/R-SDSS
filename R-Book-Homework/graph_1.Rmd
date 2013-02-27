@@ -4,15 +4,15 @@
 
 #### 输入数据：
 ```{r}
-a <- read.table(file("graph_1.dat"), header = TRUE, sep=":");
-men <- levels(a$name) # 版本发布人
-total <- max(a$wc)    # 最大版本内容
+a <- read.table(file("graph_1.dat"), header = TRUE, sep=":"); a
+men <- levels(a$name); # 版本发布人
+total <- max(a$wc);    # 最大版本内容
 ```
 
 #### 绘图
 ```{r}
 # 画布要素全局设置
-par(lwd=5,bg="#3D3D3DFF")
+par(lwd=5, bg="#3D3D3DFF", mai=c(0,0,0,0), omi=c(0,0,0,0))
 color <- c("#5FD213FF","#FD5800FF","#129DF0FF")
 color_step <- 20 # 设定版本颜色渐变的步长
 palette(color)

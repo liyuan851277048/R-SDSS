@@ -17,7 +17,7 @@ color <- c("#5FD213FF","#FD5800FF","#129DF0FF")
 color_step <- 20 # 设定版本颜色渐变的步长
 palette(color)
 
-debug0 <- T # 控制是否输出关联区域绘图
+paint_area <- T # 控制是否输出关联区域绘图
 
 # 根据版本内容设定坐标系的大小
 height <- max(total + 1)
@@ -57,10 +57,12 @@ for(i in 2:width){
       x <- c(i,i)
       hy1 <- hy2 - ac_word[j]
       y <- c(hy2, hy1)
+      # 对于新增的和旧版本，绘制线段图
       lines(x,y, col= which(men == ac_men[j]))
       py1 <- py2 - ac_word[j]
 
-      if(ac_sc[j] > 1 && debug0){
+      # 只有版本是历史版本的时候，执行这一步，也就是版本的历史修改>1的情况
+      if(ac_sc[j] > 1 && paint_area) {
         xx <- c(i,i,i-1,i-1,i)
         yy <- c(hy2 ,hy1 ,py1 ,py2 ,hy2)
         col2 <- color[which(men == ac_men[j])]

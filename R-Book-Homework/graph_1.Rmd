@@ -55,7 +55,8 @@ for(i in 2:width){
     }
     else {
       x <- c(i,i)
-      y <- c(hy2, hy1 <- hy2 - ac_word[j])
+      hy1 <- hy2 - ac_word[j]
+      y <- c(hy2, hy1)
       lines(x,y, col= which(men == ac_men[j]))
       py1 <- py2 - ac_word[j]
 

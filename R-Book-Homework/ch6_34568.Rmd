@@ -1,0 +1,77 @@
+# 第六周作业
+
+## 6.3 线性回归模型
+
+#### 输入数据：
+```{r}
+df63=data.frame(
+X=c(1,1,1,1,2,2,2,3,3,3,
+    4,4,4,5,6,6,6,7,7,7,
+    8,8,8,9,11,12,12,12),
+Y=c(0.6,1.6,0.5,1.2,2.0,1.3,2.5,2.2,2.4,1.2,
+    3.5,4.1,5.1,5.7,3.4,9.7,8.6,4.0,5.5,10.5,
+    17.5,13.4,4.5,30.4,12.4,13.4,26.2,7.4)
+); df63
+```
+
+#### 画出散点图及回归直线y=Beta0+Beta1*x，并将回归直线也画在散点图上
+```{r}
+attach(df63)
+plot(Y~X)
+lm63.sol <- lm(Y ~ 1 + X, data = df63)
+print(lm63.sol)
+abline(lm63.sol);
+```
+
+#### T检验和F检验
+
+```{r}
+summary(lm63.sol)
+```
+
+回归常数的p值为0.436且不显著，因此认为不通过T检验
+
+F统计量为30.8，p值为7.931e-6，因此认为通过F检验
+
+#### 画出残差（普通残差和标准化残差）与预测值的残差图
+
+```{r}
+yn.res=resid(lm63.sol); 
+yn.rst=rstandard(lm63.sol); 
+yn.fit=predict(lm63.sol);
+plot(yn.res~yn.fit);
+plot(yn.rst~yn.fit);
+```
+
+#### 分析误差是否是等方差
+
+```{r}
+shapiro.test(yn.res);
+```
+
+正态检验结果p值0.00131，因此残差不满足正态性假设
+
+#### 修正模型，对响应的变量Y作开方，再做前面三步分析
+
+```{r}
+lm63.new=update(lm63.sol, sqrt(.)~.);
+coef(lm63.new);
+plot(sqrt(Y)~X);
+abline(lm63.new, col="red");
+summary(lm63.new);
+```
+
+回归常数和X系数的p值均显著，通过T检验。
+
+F统计量为55.41，p值为6.645e-8，通过F检验。
+
+```{r}
+yn.res=resid(lm63.new); 
+yn.rst=rstandard(lm63.new); 
+yn.fit=predict(lm63.new);
+plot(yn.res~yn.fit);
+plot(yn.rst~yn.fit);
+shapiro.test(yn.res);
+```
+
+正态检验结果p值0.4012，能通过正态性检验，因此模型修正是合理的。

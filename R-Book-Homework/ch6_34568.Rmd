@@ -20,7 +20,7 @@ attach(df63)
 plot(Y~X)
 lm63.sol <- lm(Y ~ 1 + X, data = df63)
 print(lm63.sol)
-abline(lm63.sol);
+lines(df63$X, fitted(lm63.sol))
 ```
 
 #### T检验和F检验
@@ -29,9 +29,9 @@ abline(lm63.sol);
 summary(lm63.sol)
 ```
 
-回归常数的p值为0.436且不显著，因此认为不通过T检验
+回归常数的p值为0.44且不显著，因此认为不通过T检验
 
-F统计量为30.8，p值为7.931e-6，因此认为通过F检验
+F统计量为30.8，p值为7.93e-6，因此认为通过F检验
 
 #### 画出残差（普通残差和标准化残差）与预测值的残差图
 
@@ -55,15 +55,15 @@ shapiro.test(yn.res);
 
 ```{r}
 lm63.new=update(lm63.sol, sqrt(.)~.);
-coef(lm63.new);
 plot(sqrt(Y)~X);
-abline(lm63.new, col="red");
+print(lm63.new)
+lines(df63$X, fitted(lm63.new), col="red")
 summary(lm63.new);
 ```
 
 回归常数和X系数的p值均显著，通过T检验。
 
-F统计量为55.41，p值为6.645e-8，通过F检验。
+F统计量为55.4，p值为6.64e-8，通过F检验。
 
 ```{r}
 yn.res=resid(lm63.new); 

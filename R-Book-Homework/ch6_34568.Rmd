@@ -109,3 +109,16 @@ toothpaste.lm1.sol=lm(Y~X1+X2, data=toothpaste)
 toothpaste.diag=Reg_Diag(toothpaste.lm1.sol)
 print(toothpaste.diag)
 ```
+
+第5、8号样本的标准化残差、外学生化残差最大，对应变量Y的影响最大。而且DFFITS, Cook, COVRATIO指标超标。
+
+#### 删除异常样本后重新计算
+
+```{r}
+toothpaste.lm2.sol=lm(Y~X1+X2, data=toothpaste, subset=c(-5,-8))
+summary(toothpaste.lm1.sol)
+summary(toothpaste.lm2.sol)
+```
+
+5、8号样本删除后对新数据集进行回归后得到的相关系数的R平方已经从0.886上升到0.921，可以认为新模型好于PDF版326页的线性回归模型。
+

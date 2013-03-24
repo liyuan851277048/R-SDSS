@@ -35,3 +35,40 @@ setwd("~/R-SDSS/R-Book-Homework")
 source('MINE.r')
 MINE('WHO.csv','all.pairs')
 ```
+
+### 读入结果
+
+```{r}
+who=read.csv('WHO.csv,allpairs,cv=0.0,B=n^0.6,Results.csv')
+term=read.csv('WHO_term.csv')
+```
+
+
+### 取出显著相关的两两统计项
+
+```{r}
+strong=who[which(who$MIC..strength == 1),]
+```
+
+### 合并中英文对照表
+
+```{r}
+m=merge(strong,term, by.x = "X.var", by.y = "TermEn")
+names(m)[names(m)=="TermCN"] <- "X.var.CN"
+m=merge(m,term, by.x = "Y.var", by.y = "TermEn")
+names(m)[names(m)=="TermCN"] <- "Y.var.CN"
+m=m[,!(names(m) %in% c("SN.x","SN.y"))]
+```
+
+### 按照X.var排序
+
+```{r}
+res=m[with(m, order(X.var, Y.var)), ]
+```
+
+### 列出所有相关项目
+
+```{r}
+res[,c("X.var.CN","Y.var.CN")]
+```
+

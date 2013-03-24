@@ -1,0 +1,37 @@
+# 第八次作业
+
+## 对“WHO”数据集的MINE分析
+
+### 设置MINE环境
+
+#### [安装Java 7](http://www.webupd8.org/2012/01/install-oracle-java-jdk-7-in-ubuntu-via.html)
+
+```bash
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java7-installer
+sudo update-java-alternatives -s java-7-oracle
+sudo apt-get install oracle-java7-set-default
+```
+#### [下载MINE](http://www.exploredata.net/Downloads/MINE-Application)
+
+一共MINE.jar和MINE.R两个文件，可以放在当前工作目录，然后修改MINE.R第二行增大java的内存分配：
+
+```text
+library("rJava")
+.jinit(classpath="MINE.jar",parameters="-Xms768m")
+```
+
+#### [下载WHO数据集](http://www.exploredata.net/Downloads/WHO-Data-Set)
+
+```{r eval=FALSE}
+download.file('http://www.exploredata.net/ftp/WHO.csv','WHO.csv')
+```
+
+### 进行MINE分析(时间较长)
+
+```{r eval=FALSE}
+setwd("~/R-SDSS/R-Book-Homework")
+source('MINE.r')
+MINE('WHO.csv','all.pairs')
+```

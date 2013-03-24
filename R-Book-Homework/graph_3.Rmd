@@ -60,7 +60,7 @@ names(m)[names(m)=="TermCN"] <- "Y.var.CN"
 m <- m[,!(names(m) %in% c("SN.x","SN.y"))]
 ```
 
-### 按照X.var排序
+### 按照X.var和Y.var排序
 
 ```{r}
 res <- m[with(m, order(X.var, Y.var)), ]

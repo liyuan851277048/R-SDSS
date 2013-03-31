@@ -11,3 +11,25 @@ library(tseries)
 qndata<-get.hist.quote(instrument = qn, quote = c("Cl", "Vol"))
 write.zoo(qndata, file=paste0(qn,".csv"), sep=",")
 ```
+
+#### 绘图及时间坐标处理
+
+```{r}
+qn='ORCL'
+library(quantmod)
+library(tseries)
+qndata <- read.zoo(paste0(qn,".csv"), header=T, sep=",")
+plot(qndata,main = paste(qn,"Stock Price"), col="black", type="l", lwd=0.5, pch=19, cex=0.6, xaxt ="n", xlab=NA ,ylab=c("Price (USD)","Vol"))
+grid(nx=NA,ny=6,lwd=1,lty=2,col="gray")
+tt <- time(qndata[,0])
+ix <- seq(1, length(tt), by=100)
+fmt <- "%Y-%m-%d" # format for axis labels
+labs <- format(tt[ix], fmt)
+axis(side = 1, at = tt[ix], labels = labs,  cex.axis = 0.7)
+
+points(qndata$Close[,0][which.max(qndata$Close)], pch=19, col="red", lwd=30)
+text(index(qndata$Close[,0][which.max(qndata$Close)]), max(qndata$Close), labels=as.character(max(qndata$Close)), pos=4, col="red",adj=c(0,0))
+
+points(qndata$Close[,0][which.min(qndata$Close)], pch=19, col="blue", lwd=30)
+text(index(qndata$Close[,0][which.min(qndata$Close)]), min(qndata$Close), labels=as.character(min(qndata$Close)), pos=4, col="red",adj=c(-0.2,0))
+```

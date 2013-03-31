@@ -1,0 +1,13 @@
+# 第九次作业
+
+## 股票趋势图
+
+#### 数据抓取
+
+```{r eval=FALSE}
+qn='ORCL'
+library(quantmod)
+library(tseries)
+qndata<-get.hist.quote(instrument = qn, quote = c("Cl", "Vol"))
+write.zoo(qndata, file=paste0(qn,".csv"), sep=",")
+```

@@ -49,3 +49,12 @@ blong.fisher
 ```
 
 Fisher判别结果为：明天下雨
+
+## 8.2 心电图指标对健康人(I)，硬化症患者(II)，冠心病患者的鉴别(III)
+
+### 输入数据
+
+```{r}
+data8_2 <- read.table("data8_2.txt",header=TRUE);
+data8_2
+```

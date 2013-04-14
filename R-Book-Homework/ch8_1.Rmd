@@ -1,0 +1,51 @@
+# 第十周作业
+
+## 8.1 湿度差与压温差预测下雨
+
+### 输入数据：
+```{r}
+classX1 <- data.frame(
+    x1=c(-1.9,-6.9,5.2,5.0,7.3, 6.8,  0.9,-12.5,1.5,3.8),
+    x2=c( 3.2,10.4,2.0,2.5,0.0,12.7,-15.4, -2.5,1.3,6.8)
+); classX1
+
+classX2 <- data.frame(
+    x1=c(0.2,-0.1, 0.4,2.7,2.1,-4.6,-1.7,-2.6, 2.6,-2.8),
+    x2=c(0.2, 7.5,14.6,8.3,0.8, 4.3,10.9,13.1,12.8,10.0)
+); classX2
+test <- data.frame(X1 = c(8.1), X2 = c(2.0)); test
+```
+
+### 距离判别：
+```{r}
+source("../R-Book-Demo/ch8/discriminiant.distance.R");
+blong.distance <- discriminiant.distance(classX1, classX2, test);
+blong.distance
+```
+
+距离判别结果为1，表示待测样本属于classX1，判别明天为“雨天”。
+
+### Bayes判别：
+```{r}
+source("../R-Book-Demo/ch8/discriminiant.bayes.R");
+blong.bayes.true <- discriminiant.bayes(classX1, classX2,
+                                       TstX = test,
+                                       var.equal = TRUE);
+blong.bayes.true
+
+blong.bayes.false <- discriminiant.bayes(classX1, classX2,
+                                       TstX = test,
+                                       var.equal = FALSE);
+blong.bayes.false
+```
+
+方差相同和不同时，bayes判别结果均为下雨。
+
+### Fisher判别：
+```{r}
+source("../R-Book-Demo/ch8/discriminiant.fisher.R");
+blong.fisher <- discriminiant.fisher(classX1, classX2,  TstX = test);
+blong.fisher
+```
+
+Fisher判别结果为：明天下雨

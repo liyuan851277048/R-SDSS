@@ -1,0 +1,51 @@
+# 第十一次作业
+
+## 股票每年成交量占总成交量的百分比图
+
+#### 历史数据抓取及记录
+
+```{r eval=FALSE}
+librayr(zoo)
+library(tseries)
+apple <- get.hist.quote(instrument="aapl",quote=c("Cl","Vol"),start="2008-01-01",end="2011-12-31")
+write.zoo(x=apple, file='apple.csv')
+google <- get.hist.quote(instrument="goog",quote=c("Cl","Vol"),start="2008-01-01",end="2011-12-31")
+write.zoo(x=google, file='google.csv')
+msft <- get.hist.quote(instrument="msft",quote=c("Cl","Vol"),start="2008-01-01",end="2011-12-31")
+write.zoo(x=msft, file='msft.csv')
+```
+
+#### 读取并合并成交量
+
+```{r}
+library(zoo);
+apple <- read.zoo(file='apple.csv', header = TRUE)
+apple_years <- aggregate(apple, as.POSIXlt(index(apple))$year, na.rm=TRUE)
+google <- read.zoo(file='google.csv', header = TRUE)
+google_years <- aggregate(google, as.POSIXlt(index(google))$year, na.rm=TRUE)
+msft <- read.zoo(file='msft.csv', header = TRUE)
+msft_years <- aggregate(msft, as.POSIXlt(index(msft))$year, na.rm=TRUE)
+
+stockpro <- data.frame(year=2008:2011)
+stockpro$Apple <-apple_years$Volume/sum(apple_years$Volume)
+stockpro$Google <-google_years$Volume/sum(google_years$Volume)
+stockpro$MSFT <-msft_years$Volume/sum(msft_years$Volume)
+```
+
+
+#### 画图
+
+```{r fig.width=8}
+library(RColorBrewer)
+par(mar=c(5,4,4,10),xpd=T)
+
+x1 <- barplot(as.matrix(stockpro[,2:4]),border="white",col=brewer.pal(4,"Set1"),
+            ylab="Percentage(%)",main="Percentage of Annual volume") 
+
+x <- matrix(rep(x1,4),4,3,byrow=TRUE)
+y <- as.matrix(cumsum(stockpro[,2:4])-stockpro[,2:4]/2)
+label <- sprintf("%.2f%s",as.matrix(stockpro[,2:4]*100),"%")
+text(x,y,labels=label,cex=0.9,col="white")
+
+legend("right",legend=stockpro$year,bty="n",inset=c(-0.15,0),fill=brewer.pal(4,"Set1"))
+```

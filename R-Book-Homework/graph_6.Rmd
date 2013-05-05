@@ -1,0 +1,73 @@
+# 第十二次作业
+
+## 十国十指标热力图
+
+```{r}
+# 采用ggplot2实现
+library(ggplot2)
+
+library(reshape2)
+
+# apply的扩展，用于实现分组统计
+library(plyr)
+# 用于进行标准化
+library(scales)
+
+# 参考论坛同学的选取的指标:
+## 选取金砖国家（中国、俄罗斯、印度、巴西、南非）
+## 欧美发达国家（美国、德国、法国、英国）
+## 亚洲较发达国家（日本）
+# 25  Brazil
+# 37  China
+# 62  France
+# 67  Germany
+# 80  India
+# 88  Japan
+# 150 Rusia
+# 168 South Africa
+# 192 United Kingdom
+# 193 United States of America
+
+## 有报道显示，中国总理李克强此前在担任辽宁省委书记时曾透露，相比于GDP，
+## 他更愿意看“铁路货物运输量、电力消费和银行贷款”这三个指标。
+## 除了就业、物价、收入等方面的数据，“李克强指标”也成为各方关注的焦点。
+# 9   Population (in thousands) total    人口（千）总
+# 10  Population annual growth rate (%)    人口年均增长率（％）
+# 169 Agriculture_contribution_to_economy    农业对经济的贡献
+# 191 Central_bank_discount_rate    中央银行的贴现率
+# 213 Consumer_price_index  居民消费价格指数
+# 218 Electric_power_consumption    电力消耗
+# 225 Exports_of_goods_and_services    货物和服务出口
+# 245 Imports_of_goods_and_services    货物和服务进口
+# 249 Income_growth    收入增长
+# 250 Income_per_person    人均收入
+
+
+who<-read.csv("WHO.csv",head=TRUE)
+who<- who[c(25,37,62,67,80,88,150,168,192,193),
+          c(1,9,10,169,191,213,218,225,245,249,250)];
+
+colnames(who) = c("国家","人口总数", "人口增长率", "农业对经济的贡献", "中央银行贴现率",
+                  "消费价格指数", "电力消耗", "货物服务出口", "货物服务进口",
+                  "收入增长", "人均收入");
+
+# 用reshape2包进行数据汇总
+who.melt<-melt(who,id=c('Country'))
+head(who.melt)
+
+# 进行标准化处理
+who.result<-ddply(who.melt,.(variable),transform,rescale=rescale(value))
+head(who.result)
+
+# ggplot绘图
+p<-ggplot(data=who.result,mapping=aes(variable,Country))
+
+# p+geom_point()
+base_size <- 9
+p<-p + theme_grey(base_size = base_size) + labs(x = "",y = "") + scale_x_discrete(expand = c(0, 0)) +scale_y_discrete(expand = c(0, 0)) + theme(axis.ticks = element_blank(), axis.text.x = element_text(size=10,angle = 330, hjust = 0, colour = "black"),axis.text.y = element_text(size=10,colour = "black"))
+
+p<-p + geom_tile(aes(fill = rescale),colour="white")
+p<-p+scale_fill_gradient(low="white",high="steelblue")
+
+p
+```

@@ -5,7 +5,7 @@
 #### 历史数据抓取及记录
 
 ```{r eval=FALSE}
-librayr(zoo)
+library(zoo)
 library(tseries)
 apple <- get.hist.quote(instrument="aapl",quote=c("Cl","Vol"),start="2008-01-01",end="2011-12-31")
 write.zoo(x=apple, file='apple.csv')

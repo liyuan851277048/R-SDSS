@@ -1,6 +1,6 @@
 # 第十四次作业
 
-## google北京地图与亚洲国家成人识字率热力地图
+### google北京地图
 
 ```{r}
 library("ggmap");
@@ -19,4 +19,33 @@ ggmap(map, extent = 'panel') +
 annotate("text",x=116.3974,y=39.90472,label="Tian An Men",col="darkred",fontface=2) +
 annotate("text",x=116.2739,y=39.99957,label="Yi He Yuan",col="darkred",fontface=2) +
 labs(x="Longitude", y="Latitude", title='Tiananmen to Yiheyuan');
+```
+
+### 亚洲国家成人识字率热力地图
+
+```{r}
+library(rworldmap);
+library(gplots);
+who = read.csv("WHO.csv",TRUE);
+who = who[,c(1,5)];
+
+## 声明地图
+map = joinCountryData2Map(who, joinCode='NAME',
+                          nameJoinColumn = "Country", verbose='T');
+## 绘制地图
+mapParams = mapCountryData(map, nameColumnToPlot = 'Adult.literacy.rate....',
+               mapTitle = '亚洲各国成人识字率（%）',
+               colourPalette = colorpanel(112,low="yellow",mid="#FCC5C0",high="#AE017E"),
+               catMethod = 'categorical',
+               addLegend = FALSE,   # 不显示图例
+               oceanCol = 'lightblue',
+               #missingCountryCol = 'white',
+               mapRegion = "asia",  # 限制亚洲区域
+               borderCol = 'black');
+## 添加图例
+do.call( addMapLegend, c(mapParams, legendWidth = 0.5,legendMar  = 2,
+                         legendIntervals='li',legendLabels="all" ));
+
+## 交互效果，在地图上通过鼠标点击来显示对应国家名称
+identifyCountries( getMap(), nameColumnToPlot="Adult.literacy.rate...." );
 ```

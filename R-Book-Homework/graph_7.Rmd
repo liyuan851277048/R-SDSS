@@ -5,19 +5,18 @@
 ```{r}
 library("ggmap");
 
-from = 'tiananmen, beijing';
-to = 'yiheyuan, beijing';
-route.from = geocode(from); # 起点坐标
-route.to = geocode(to);     # 终点坐标
-route.df = route(from, to, mode = 'driving', structure = 'route');
+from <- 'tiananmen, beijing';
+to <- 'yiheyuan, beijing';
+route.from <- geocode(from); # 起点坐标
+route.to <- geocode(to);     # 终点坐标
+route.df <- route(from, to, mode = 'driving', structure = 'route');
 
 
-route.ln = data.frame(route.df$lon, route.df$lat);
-map = get_googlemap( 'beijingligongdaxue', zoom = 12, maptype='roadmap',
-                     markers = route.ln, path = route.ln, scale = 2);
+route.ln <- data.frame(route.df$lon, route.df$lat);
+map <- get_googlemap('beijingligongdaxue', zoom = 12, maptype='roadmap', markers = route.ln, path = route.ln, scale = 2);
 
-ggmap(map, extent = 'panel');
-annotate("text",x=116.3974,y=39.90472,label="Tian An Men",col="darkred",fontface=2);
-annotate("text",x=116.2739,y=39.99957,label="Yi He Yuan",col="darkred",fontface=2);
+ggmap(map, extent = 'panel') +
+annotate("text",x=116.3974,y=39.90472,label="Tian An Men",col="darkred",fontface=2) +
+annotate("text",x=116.2739,y=39.99957,label="Yi He Yuan",col="darkred",fontface=2) +
 labs(x="Longitude", y="Latitude", title='Tiananmen to Yiheyuan');
 ```

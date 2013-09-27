@@ -65,4 +65,21 @@ doubles
 
 Object-oriented
 ========================================================
+![Object-oriented classes](object-oriented_classes.png)
+***
+![Object-oriented calling sequence](object-oriented_calling_sequence.png)
 
+Functional
+========================================================
+![Markdown source](functional_markdown.png)
+![Pipeline](functional_process_pipeline.png)
+***
+![generated HTML](functional_html.png)
+
+Functional (continue)
+========================================================
+left: 70%
+![HTML decorated DOM](functional_decorated_html.png)
+![Pipeline](functional_process_pipeline.png)
+***
+![Final web page](functional_webpage.png)

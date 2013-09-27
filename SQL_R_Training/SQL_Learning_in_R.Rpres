@@ -30,7 +30,7 @@ Declarative vs Imperative
 
 Here will be a picture illustration the relation ship for Declarative vs Imperative
 
-Imperative
+Imperative programming style
 ========================================================
 
 Imperative languages are often restricted to a level of detail that is good for their compilers rather than for their programmers (Sokolowski 1991).
@@ -46,7 +46,7 @@ doubles
 ```
 
 
-Declarative
+Declarative programming style
 ========================================================
 
 declarative programming is a programming paradigm, a style of building the structure and elements of computer programs, that expresses the logic of a computation without describing its control flow.
@@ -56,3 +56,13 @@ numbers <- c(1,2,3,4,5)
 doubles <- sapply(numbers, function(x){x*2})
 doubles
 ```
+
+========================================================
+
+# <center>**Functional**</center>
+# <center>vs</center>
+# <center>Object-oriented</center>
+
+Object-oriented
+========================================================
+

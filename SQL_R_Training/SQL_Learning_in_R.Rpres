@@ -1,0 +1,58 @@
+SQL (Structured Query Language) & R
+========================================================
+author: Eric Guo
+date: 2013-10-15
+font-family: 'Arial'
+
+## your first & second declarative functional programming language
+
+
+Agenda
+========================================================
+
+- Terminology
+- Why SQL / R design like currently status
+- Example
+    - SQL and R, side by side
+- Practice SQL writing style demo
+- Practice SQL express logic in functional
+- Further reading material
+
+
+========================================================
+
+# <center>**Declarative**</center>
+# <center>vs</center>
+# <center>Imperative</center>
+
+Declarative vs Imperative
+========================================================
+
+Here will be a picture illustration the relation ship for Declarative vs Imperative
+
+Imperative
+========================================================
+
+Imperative languages are often restricted to a level of detail that is good for their compilers rather than for their programmers (Sokolowski 1991).
+
+```{r}
+numbers <- c(1,2,3,4,5)
+doubles <- c()
+
+for(x in numbers) {
+  doubles <- append(doubles, x*2)
+}
+doubles
+```
+
+
+Declarative
+========================================================
+
+declarative programming is a programming paradigm, a style of building the structure and elements of computer programs, that expresses the logic of a computation without describing its control flow.
+
+```{r}
+numbers <- c(1,2,3,4,5)
+doubles <- sapply(numbers, function(x){x*2})
+doubles
+```

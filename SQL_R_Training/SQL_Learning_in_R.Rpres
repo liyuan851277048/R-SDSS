@@ -106,23 +106,54 @@ Functional programming (Scala)
 Functional programming has type and also have speed.
 
 ```scala
-Welcome to Scala version 2.9.2 (Java HotSpot(TM) Client VM, Java 1.7.0_40).
-scala> 1 until 6
+Welcome to Scala version 2.10.2 (Java HotSpot(TM) Client VM, Java 1.7.0_40).
+scala> 1 to 5
 res0: collection.immutable.Range = Range(1, 2, 3, 4, 5)
 
 scala> { x:Int => x * 2 }
 res1: Int => Int = <function1>
 ```
 
-Functional paradigms
+Functional paradigms (Scala)
 ========================================================
 
 And it's keystone for parallel in muti-core era.
 
 ```scala
-scala> 1 until 6 map { _ * 2 }
+scala> 1 to 5 map { _ * 2 }
 res2: collection.immutable.IndexedSeq[Int] = Vector(2, 4, 6, 8, 10)
 
-scala> (1 until 6).par map { x => x * 2 }
+scala> (1 to 5).par map { x => x * 2 }
 res3: collection.parallel.immutable.ParSeq[Int] = ParVector(2, 4, 6, 8, 10)
 ```
+
+Functional paradigms in SQL
+========================================================
+
+
+Summary of SQL and R
+========================================================
+
+- Both functional, next **big** programming paradigms
+- Think in (from recommend to not prefer)
+  - Whole (let other people do the job)
+  - Set
+  - Functional
+  - Step (combine function)
+  - Imperative in detail
+- SQL is much more used than R, but learning R will make you a better SQL writer
+
+
+Further reading material
+========================================================
+
+- SQL基础教程 <a href="file:///T:/EricGuo/SQL/">T:\EricGuo\SQL</a>
+- [Imperative vs Declarative](http://latentflip.com/imperative-vs-declarative/) or [中文版](http://blog.jobbole.com/42178/)
+- Learning by doing
+- Think in functional and between declarative and imperative
+
+
+Thank you for your time
+========================================================
+
+# <center>**Q&A**</center>

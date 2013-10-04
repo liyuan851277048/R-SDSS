@@ -171,6 +171,16 @@ owners <- dbReadTable(con, "OWNERS")
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID")
 ```
 
+Compare the Imperative Programming (Javascript)
+========================================================
+
+![Javascrip doing merge](imperative_example_in_javascript.png)
+
+The SQL JOINS
+========================================================
+
+![The SQL Joins summary](sql_joins_summary.jpg)
+
 Summary of SQL and R
 ========================================================
 

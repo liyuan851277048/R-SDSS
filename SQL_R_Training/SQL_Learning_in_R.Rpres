@@ -57,7 +57,7 @@ left: 70%
 ***
 ![Final web page](functional_webpage.png)
 
-Imperative programming style
+Imperative programming style (R)
 ========================================================
 
 Imperative languages are often restricted to a level of detail that is good for their compilers rather than for their programmers (Sokolowski 1991).
@@ -160,6 +160,15 @@ SELECT *
 FROM dogs
 INNER JOIN owners on owner_id=id
 ")
+```
+
+Functional paradigms in R
+========================================================
+
+```{r}
+dogs <- dbReadTable(con, "DOGS")
+owners <- dbReadTable(con, "OWNERS")
+merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID")
 ```
 
 Summary of SQL and R

@@ -127,9 +127,40 @@ scala> (1 to 5).par map { x => x * 2 }
 res3: collection.parallel.immutable.ParSeq[Int] = ParVector(2, 4, 6, 8, 10)
 ```
 
+Getting SQL data in R (adv)
+========================================================
+
+```{r}
+library(ROracle)
+con <- dbConnect(dbDriver("Oracle"), username="sql_training", password="sq1trn", dbname="SPMSTST")
+sql <- dbSendQuery(con, "
+SELECT * 
+FROM dogs t
+")
+fetch(sql, n=-1)
+```
+
+Define function to query data in SQL (adv)
+========================================================
+
+```{r}
+sql_query = function(sql_text) {
+  fetch(dbSendQuery(con,sql_text), n= -1)
+}
+sql_query("select * from owners t")
+```
+
+
 Functional paradigms in SQL
 ========================================================
 
+```{r}
+sql_query("
+SELECT * 
+FROM dogs
+INNER JOIN owners on owner_id=id
+")
+```
 
 Summary of SQL and R
 ========================================================
@@ -143,7 +174,6 @@ Summary of SQL and R
   - Imperative in detail
 - SQL is much more used than R, but learning R will make you a better SQL writer
 
-
 Further reading material
 ========================================================
 
@@ -151,7 +181,6 @@ Further reading material
 - [Imperative vs Declarative](http://latentflip.com/imperative-vs-declarative/) or [中文版](http://blog.jobbole.com/42178/)
 - Learning by doing
 - Think in functional and between declarative and imperative
-
 
 Thank you for your time
 ========================================================

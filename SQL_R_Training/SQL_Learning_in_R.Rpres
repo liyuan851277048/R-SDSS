@@ -181,6 +181,57 @@ The SQL JOINS
 
 ![The SQL Joins summary](sql_joins_summary.jpg)
 
+INNER JOINS in SQL & R
+========================================================
+
+```{r}
+sql_query("SELECT * FROM dogs
+INNER JOIN owners on owner_id=id")
+merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID")
+```
+
+OUTER JOINS in SQL & R
+========================================================
+
+```{r}
+sql_query("SELECT * FROM dogs
+FULL OUTER JOIN owners on owner_id=id")
+merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all = TRUE)
+```
+
+LEFT OUTER JOINS in SQL & R
+========================================================
+
+```{r}
+sql_query("SELECT * FROM dogs
+LEFT OUTER JOIN owners on owner_id=id")
+merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all.x = TRUE)
+```
+
+RIGHT OUTER JOINS in SQL & R
+========================================================
+
+```{r}
+sql_query("SELECT * FROM dogs
+RIGHT OUTER JOIN owners on owner_id=id")
+merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all.y = TRUE)
+```
+
+CROSS JOINS in SQL
+========================================================
+
+```{r}
+sql_query("SELECT * FROM dogs
+CROSS JOIN owners")
+```
+
+CROSS JOINS in R
+========================================================
+
+```{r}
+merge(x=dogs, y=owners, by = NULL)
+```
+
 Summary of SQL and R
 ========================================================
 

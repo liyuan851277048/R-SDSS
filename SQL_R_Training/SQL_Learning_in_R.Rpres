@@ -286,7 +286,35 @@ ij <- merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID")
 fj[!duplicated(rbind(ij, fj))[-seq_len(nrow(ij))], ]
 ```
 
+SQL Select Columns, R data frame
+========================================================
 
+Select column operation called **project**
+
+>It’s an odd mistake of history that the traditional SQL SELECT is actually the PROJECT statement in relational algebra.
+
+```{r}
+sql_query("SELECT * FROM dogs"); dogs
+```
+
+SQL Select Columns, R data frame by columne number or name
+========================================================
+
+```{r}
+sql_query("SELECT NAME FROM dogs"); dogs[1]
+dogs$NAME
+```
+
+SQL Select Columns, R data frame by columne name
+========================================================
+
+```{r}
+sql_query("SELECT owner_id, name FROM dogs")
+```
+
+```{r eval=FALSE}
+data.frame(owner_id=dogs$OWNER_ID, dog_name=dogs$NAME)
+```
 
 Summary of SQL and R
 ========================================================

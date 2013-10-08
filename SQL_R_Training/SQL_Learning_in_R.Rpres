@@ -217,20 +217,76 @@ RIGHT OUTER JOIN owners on owner_id=id")
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all.y = TRUE)
 ```
 
-CROSS JOINS in SQL
+LEFT JOINS - INNER JOIN part in SQL
 ========================================================
 
 ```{r}
 sql_query("SELECT * FROM dogs
-CROSS JOIN owners")
+LEFT OUTER JOIN owners on owner_id=id
+WHERE owner_id is null")
 ```
 
-CROSS JOINS in R
+LEFT JOINS - INNER JOIN part in R
 ========================================================
 
 ```{r}
-merge(x=dogs, y=owners, by = NULL)
+lj <- merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all.x = TRUE)
+ij <- merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID")
+lj[!duplicated(rbind(ij, lj))[-seq_len(nrow(ij))], ]
 ```
+
+RIGHT JOINS - INNER JOIN part in SQL
+========================================================
+
+```{r}
+sql_query("SELECT * FROM dogs
+RIGHT OUTER JOIN owners on owner_id=id
+WHERE OWNER_ID is null")
+```
+
+RIGHT JOINS - INNER JOIN part in R
+========================================================
+
+```{r}
+rj <- merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all.y = TRUE)
+ij <- merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID")
+rj[!duplicated(rbind(ij, rj))[-seq_len(nrow(ij))], ]
+```
+
+FULL OUTER JOIN in SQL
+========================================================
+
+```{r}
+sql_query("SELECT * FROM dogs
+FULL OUTER JOIN owners on owner_id=id")
+```
+
+FULL OUTER JOIN in R
+========================================================
+
+```{r}
+merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all = TRUE)
+```
+
+FULL OUTER JOIN - INNER JOIN part in SQL
+========================================================
+
+```{r}
+sql_query("SELECT * FROM dogs
+FULL OUTER JOIN owners on owner_id=id
+WHERE owner_id is null or id is null")
+```
+
+FULL OUTER JOIN - INNER JOIN part in R
+========================================================
+
+```{r}
+fj <- merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all = TRUE)
+ij <- merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID")
+fj[!duplicated(rbind(ij, fj))[-seq_len(nrow(ij))], ]
+```
+
+
 
 Summary of SQL and R
 ========================================================

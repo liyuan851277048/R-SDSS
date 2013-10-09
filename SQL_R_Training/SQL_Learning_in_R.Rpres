@@ -316,6 +316,32 @@ sql_query("SELECT owner_id, name FROM dogs")
 data.frame(owner_id=dogs$OWNER_ID, dog_name=dogs$NAME)
 ```
 
+SQL DISTINCT, R unique
+========================================================
+
+```{r}
+sql_query("SELECT DISTINCT owner_id FROM dogs")
+unique(dogs$OWNER_ID)
+```
+
+```{r eval=FALSE}
+unique(data.frame(dogs$OWNER_ID))
+unique(data.frame(dogs[,c("OWNER_ID","NAME")]))
+```
+
+SQL ORDER BY, R order
+========================================================
+
+```{r}
+sql_query("SELECT * FROM dogs ORDER BY name")
+dogs[with(dogs,order(NAME)),]
+```
+
+```{r eval=FALSE}
+library(doBy)
+orderBy(~-OWNER_ID + NAME, data=dogs)
+```
+
 Summary of SQL and R
 ========================================================
 

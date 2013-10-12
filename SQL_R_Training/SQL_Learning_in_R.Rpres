@@ -403,6 +403,27 @@ aggregate(od$NAME, by=list(DogOwner=od$OWNER),FUN=function(x) sum(!is.na(x)))
 by(od$NAME,od$OWNER,function(x) sum(!is.na(x)))
 ```
 
+SQL HAVING, R still t/f vector 
+========================================================
+
+```{r}
+sql("SELECT owners.OWNER, count(dogs.NAME) FROM dogs RIGHT OUTER JOIN owners on owner_id=id GROUP BY owners.OWNER
+HAVING COUNT(dogs.NAME) > 1")
+aggregate(od$NAME, by=list(DogOwner=od$OWNER),FUN=function(x) sum(!is.na(x))) -> oda; oda$x > 1
+oda[oda$x>1,]
+```
+
+SQL JOIN subquery, R same function
+========================================================
+
+- Too much declarative feature will make you learning curve unnecessary long
+- Too much imperative will make you working time unnecessary long
+- Too much object will lead combine exploration
+- Too much functional will lead…
+  - No harmful [AFAIK](http://netforbeginners.about.com/od/a/f/What-Is-AFAIK.htm) at present, because it’s just math
+  - Hard to learn, maybe
+
+
 Formal SQL syntax
 ========================================================
 ```sql

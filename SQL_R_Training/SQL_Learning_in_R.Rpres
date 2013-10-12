@@ -383,6 +383,16 @@ rbind(dogs[ndx,],data.frame(NAME=c("Wang Cai"),OWNER_ID=c(4))) -> t
 rownames(t) <- NULL; t # reset the row name
 ```
 
+SQL GROUP BY, R aggregate, reshape
+========================================================
+
+```{r}
+sql_query("SELECT * FROM dogs RIGHT OUTER JOIN owners on owner_id=id")
+sql_query("SELECT owners.OWNER, count(dogs.NAME) 
+FROM dogs RIGHT OUTER JOIN owners on owner_id=id
+GROUP BY owners.OWNER")
+```
+
 Formal SQL syntax
 ========================================================
 ```sql

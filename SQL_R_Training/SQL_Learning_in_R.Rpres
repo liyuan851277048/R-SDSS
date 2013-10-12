@@ -217,7 +217,7 @@ RIGHT OUTER JOIN owners on owner_id=id")
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all.y = TRUE)
 ```
 
-LEFT JOINS - INNER JOIN part in SQL
+LEFT JOINS - INNER JOIN in SQL
 ========================================================
 
 ```{r}
@@ -226,7 +226,7 @@ LEFT OUTER JOIN owners on owner_id=id
 WHERE owner_id is null")
 ```
 
-LEFT JOINS - INNER JOIN part in R
+LEFT JOINS - INNER JOIN in R
 ========================================================
 
 ```{r}
@@ -235,7 +235,7 @@ ij <- merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID")
 lj[!duplicated(rbind(ij, lj))[-seq_len(nrow(ij))], ]
 ```
 
-RIGHT JOINS - INNER JOIN part in SQL
+RIGHT JOINS - INNER JOIN in SQL
 ========================================================
 
 ```{r}
@@ -244,7 +244,7 @@ RIGHT OUTER JOIN owners on owner_id=id
 WHERE OWNER_ID is null")
 ```
 
-RIGHT JOINS - INNER JOIN part in R
+RIGHT JOINS - INNER JOIN in R
 ========================================================
 
 ```{r}
@@ -268,7 +268,7 @@ FULL OUTER JOIN in R
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all = TRUE)
 ```
 
-FULL OUTER JOIN - INNER JOIN part in SQL
+FULL OUTER JOIN - INNER JOIN in SQL
 ========================================================
 
 ```{r}
@@ -277,7 +277,7 @@ FULL OUTER JOIN owners on owner_id=id
 WHERE owner_id is null or id is null")
 ```
 
-FULL OUTER JOIN - INNER JOIN part in R
+FULL OUTER JOIN - INNER JOIN in R
 ========================================================
 
 ```{r}
@@ -388,9 +388,7 @@ SQL GROUP BY, R aggregate, reshape
 
 ```{r}
 sql("SELECT * FROM dogs RIGHT OUTER JOIN owners on owner_id=id")
-sql("SELECT owners.OWNER, count(dogs.NAME)
-FROM dogs RIGHT OUTER JOIN owners on owner_id=id
-GROUP BY owners.OWNER")
+sql("SELECT owners.OWNER, count(dogs.NAME) FROM dogs RIGHT OUTER JOIN owners on owner_id=id GROUP BY owners.OWNER")
 ```
 
 Formal SQL syntax

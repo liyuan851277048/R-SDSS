@@ -133,21 +133,21 @@ Getting SQL data in R (adv)
 ```{r}
 library(ROracle)
 con <- dbConnect(dbDriver("Oracle"), username="sql_training", password="sq1trn", dbname="SPMSTST")
-sql <- dbSendQuery(con, "
-SELECT * 
+sql_statement <- dbSendQuery(con, "
+SELECT *
 FROM dogs t
 ")
-fetch(sql, n=-1)
+fetch(sql_statement, n=-1)
 ```
 
 Define function to query data in SQL (adv)
 ========================================================
 
 ```{r}
-sql_query = function(sql_text) {
+sql = function(sql_text) {
   fetch(dbSendQuery(con,sql_text), n= -1)
 }
-sql_query("select * from owners t")
+sql("select * from owners t")
 ```
 
 
@@ -155,8 +155,8 @@ Functional paradigms in SQL
 ========================================================
 
 ```{r}
-sql_query("
-SELECT * 
+sql("
+SELECT *
 FROM dogs
 INNER JOIN owners on owner_id=id
 ")
@@ -185,7 +185,7 @@ INNER JOINS in SQL & R
 ========================================================
 
 ```{r}
-sql_query("SELECT * FROM dogs
+sql("SELECT * FROM dogs
 INNER JOIN owners on owner_id=id")
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID")
 ```
@@ -194,7 +194,7 @@ OUTER JOINS in SQL & R
 ========================================================
 
 ```{r}
-sql_query("SELECT * FROM dogs
+sql("SELECT * FROM dogs
 FULL OUTER JOIN owners on owner_id=id")
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all = TRUE)
 ```
@@ -203,7 +203,7 @@ LEFT OUTER JOINS in SQL & R
 ========================================================
 
 ```{r}
-sql_query("SELECT * FROM dogs
+sql("SELECT * FROM dogs
 LEFT OUTER JOIN owners on owner_id=id")
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all.x = TRUE)
 ```
@@ -212,7 +212,7 @@ RIGHT OUTER JOINS in SQL & R
 ========================================================
 
 ```{r}
-sql_query("SELECT * FROM dogs
+sql("SELECT * FROM dogs
 RIGHT OUTER JOIN owners on owner_id=id")
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all.y = TRUE)
 ```
@@ -221,7 +221,7 @@ LEFT JOINS - INNER JOIN part in SQL
 ========================================================
 
 ```{r}
-sql_query("SELECT * FROM dogs
+sql("SELECT * FROM dogs
 LEFT OUTER JOIN owners on owner_id=id
 WHERE owner_id is null")
 ```
@@ -239,7 +239,7 @@ RIGHT JOINS - INNER JOIN part in SQL
 ========================================================
 
 ```{r}
-sql_query("SELECT * FROM dogs
+sql("SELECT * FROM dogs
 RIGHT OUTER JOIN owners on owner_id=id
 WHERE OWNER_ID is null")
 ```
@@ -257,7 +257,7 @@ FULL OUTER JOIN in SQL
 ========================================================
 
 ```{r}
-sql_query("SELECT * FROM dogs
+sql("SELECT * FROM dogs
 FULL OUTER JOIN owners on owner_id=id")
 ```
 
@@ -272,7 +272,7 @@ FULL OUTER JOIN - INNER JOIN part in SQL
 ========================================================
 
 ```{r}
-sql_query("SELECT * FROM dogs
+sql("SELECT * FROM dogs
 FULL OUTER JOIN owners on owner_id=id
 WHERE owner_id is null or id is null")
 ```
@@ -294,14 +294,14 @@ Select column operation called **project**
 >It’s an odd mistake of history that the traditional SQL SELECT is actually the PROJECT statement in relational algebra.
 
 ```{r}
-sql_query("SELECT * FROM dogs"); dogs
+sql("SELECT * FROM dogs"); dogs
 ```
 
 SQL Select Columns, R data frame by columne number or name
 ========================================================
 
 ```{r}
-sql_query("SELECT NAME FROM dogs"); dogs[1]
+sql("SELECT NAME FROM dogs"); dogs[1]
 dogs$NAME
 ```
 
@@ -309,7 +309,7 @@ SQL Select Columns, R data frame by columne name
 ========================================================
 
 ```{r}
-sql_query("SELECT owner_id, name FROM dogs")
+sql("SELECT owner_id, name FROM dogs")
 ```
 
 ```{r eval=FALSE}
@@ -320,7 +320,7 @@ SQL DISTINCT, R unique
 ========================================================
 
 ```{r}
-sql_query("SELECT DISTINCT owner_id FROM dogs")
+sql("SELECT DISTINCT owner_id FROM dogs")
 unique(dogs$OWNER_ID)
 ```
 
@@ -333,7 +333,7 @@ SQL ORDER BY, R order
 ========================================================
 
 ```{r}
-sql_query("SELECT * FROM dogs ORDER BY name")
+sql("SELECT * FROM dogs ORDER BY name")
 dogs[with(dogs,order(NAME)),]
 ```
 
@@ -346,7 +346,7 @@ SQL WHERE, R t/f vector and grep
 ========================================================
 
 ```{r}
-sql_query("SELECT * FROM dogs
+sql("SELECT * FROM dogs
  WHERE NAME like 'A%'")
 ```
 
@@ -359,7 +359,7 @@ SQL function/express, R cbind
 ========================================================
 
 ```{r}
-sql_query("SELECT NAME, 
+sql("SELECT NAME,
 lower(NAME), substr(lower(NAME),1,1)
 FROM dogs")
 ```
@@ -374,7 +374,7 @@ SQL UNION ALL, R rbind
 ========================================================
 
 ```{r}
-sql_query("SELECT NAME, OWNER_ID FROM dogs WHERE NAME like 'A%'
+sql("SELECT NAME, OWNER_ID FROM dogs WHERE NAME like 'A%'
  UNION ALL SELECT 'Wang Cai', 4 FROM DUAL")
 ```
 
@@ -387,8 +387,8 @@ SQL GROUP BY, R aggregate, reshape
 ========================================================
 
 ```{r}
-sql_query("SELECT * FROM dogs RIGHT OUTER JOIN owners on owner_id=id")
-sql_query("SELECT owners.OWNER, count(dogs.NAME) 
+sql("SELECT * FROM dogs RIGHT OUTER JOIN owners on owner_id=id")
+sql("SELECT owners.OWNER, count(dogs.NAME)
 FROM dogs RIGHT OUTER JOIN owners on owner_id=id
 GROUP BY owners.OWNER")
 ```

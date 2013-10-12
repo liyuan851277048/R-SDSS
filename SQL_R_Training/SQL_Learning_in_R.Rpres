@@ -338,8 +338,62 @@ dogs[with(dogs,order(NAME)),]
 ```
 
 ```{r eval=FALSE}
-library(doBy)
+library(doBy);
 orderBy(~-OWNER_ID + NAME, data=dogs)
+```
+
+SQL WHERE, R t/f vector and grep
+========================================================
+
+```{r}
+sql_query("SELECT * FROM dogs
+ WHERE NAME like 'A%'")
+```
+
+```{r}
+ndx <- grep("^A", dogs$NAME); ndx
+dogs[grep("^A", dogs$NAME),]
+```
+
+SQL function/express, R cbind
+========================================================
+
+```{r}
+sql_query("SELECT NAME, 
+lower(NAME), substr(lower(NAME),1,1)
+FROM dogs")
+```
+
+```{r}
+data.frame(lowname=tolower(dogs$NAME)) -> lowname
+data.frame(fn=substr(lowname[,c(1)],1,1)) -> fn
+cbind(dogs[,c("NAME")],lowname, fn)
+```
+
+SQL UNION ALL, R rbind
+========================================================
+
+```{r}
+sql_query("SELECT NAME, OWNER_ID FROM dogs WHERE NAME like 'A%'
+ UNION ALL SELECT 'Wang Cai', 4 FROM DUAL")
+```
+
+```{r}
+rbind(dogs[ndx,],data.frame(NAME=c("Wang Cai"),OWNER_ID=c(4))) -> t
+rownames(t) <- NULL; t # reset the row name
+```
+
+Formal SQL syntax
+========================================================
+```sql
+SELECT [DISTINCT] columns | * | expression
+  FROM table
+ORDER BY sort_column1 [ASC | DESC],
+         sort_column2 [ASC | DESC],
+         ...
+         sort_columnN [ASC | DESC];
+[UNION ALL|MINUS|INTERSECT]
+[SELECT clauses...]
 ```
 
 Summary of SQL and R

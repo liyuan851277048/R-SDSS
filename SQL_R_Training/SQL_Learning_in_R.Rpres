@@ -7,6 +7,7 @@ font-family: 'Arial'
 ## your first & second declarative functional programming language
 
 
+
 Agenda
 ========================================================
 
@@ -19,22 +20,26 @@ Agenda
 - Further reading material
 
 
-========================================================
 
+========================================================
 # <center>**Declarative**</center>
 # <center>vs</center>
 # <center>Imperative</center>
 
+
+
 Declarative vs Imperative
 ========================================================
-
 Here will be a picture illustration the relation ship for Declarative vs Imperative
 
-========================================================
 
+
+========================================================
 # <center>**Functional**</center>
 # <center>vs</center>
 # <center>Object-oriented</center>
+
+
 
 Object-oriented
 ========================================================
@@ -42,12 +47,16 @@ Object-oriented
 ***
 ![Object-oriented calling sequence](object-oriented_calling_sequence.png)
 
+
+
 Functional
 ========================================================
 ![Markdown source](functional_markdown.png)
 ![Pipeline](functional_process_pipeline.png)
 ***
 ![generated HTML](functional_html.png)
+
+
 
 Functional (continue)
 ========================================================
@@ -57,9 +66,10 @@ left: 70%
 ***
 ![Final web page](functional_webpage.png)
 
+
+
 Imperative programming style (R)
 ========================================================
-
 Imperative languages are often restricted to a level of detail that is good for their compilers rather than for their programmers (Sokolowski 1991).
 
 ```{r}
@@ -73,9 +83,9 @@ doubles
 ```
 
 
+
 Declarative programming style (R)
 ========================================================
-
 declarative programming is a programming paradigm, a style of building the structure and elements of computer programs, that expresses the logic of a computation without describing its control flow.
 
 ```{r}
@@ -84,9 +94,10 @@ doubles=sapply(numbers, function(x) x*2)
 doubles
 ```
 
+
+
 Declarative programming style (Ruby)
 ========================================================
-
 More favorite programming syntax in declarative style is functional
 
 ```ruby
@@ -95,14 +106,14 @@ ruby 2.0.0p247 [i386-mingw32]
 c:\git>irb
 irb(main):001:0> (1..5).map {|x| x*2}
 ```
-
 ```
 => [2, 4, 6, 8, 10]
 ```
 
+
+
 Functional programming (Scala)
 ========================================================
-
 Functional programming has type and also have speed.
 
 ```scala
@@ -114,9 +125,10 @@ scala> { x:Int => x * 2 }
 res1: Int => Int = <function1>
 ```
 
+
+
 Functional paradigms (Scala)
 ========================================================
-
 And it's keystone for parallel in muti-core era.
 
 ```scala
@@ -127,9 +139,10 @@ scala> (1 to 5).par map { x => x * 2 }
 res3: collection.parallel.immutable.ParSeq[Int] = ParVector(2, 4, 6, 8, 10)
 ```
 
+
+
 Getting SQL data in R (adv)
 ========================================================
-
 ```{r}
 library(ROracle)
 con <- dbConnect(dbDriver("Oracle"), username="sql_training", password="sq1trn", dbname="SPMSTST")
@@ -140,9 +153,10 @@ FROM dogs t
 fetch(sql_statement, n=-1)
 ```
 
+
+
 Define function to query data in SQL (adv)
 ========================================================
-
 ```{r}
 sql = function(sql_text) {
   fetch(dbSendQuery(con,sql_text), n= -1)
@@ -151,9 +165,9 @@ sql("select * from owners t")
 ```
 
 
+
 Functional paradigms in SQL
 ========================================================
-
 ```{r}
 sql("
 SELECT *
@@ -162,133 +176,149 @@ INNER JOIN owners on owner_id=id
 ")
 ```
 
+
+
 Functional paradigms in R
 ========================================================
-
 ```{r}
 dogs <- dbReadTable(con, "DOGS")
 owners <- dbReadTable(con, "OWNERS")
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID")
 ```
 
+
+
 Compare the Imperative Programming (Javascript)
 ========================================================
-
 ![Javascrip doing merge](imperative_example_in_javascript.png)
+
+
 
 The SQL JOINS
 ========================================================
-
 ![The SQL Joins summary](sql_joins_summary.jpg)
+
+
 
 INNER JOINS in SQL & R
 ========================================================
-
 ```{r}
 sql("SELECT * FROM dogs
 INNER JOIN owners on owner_id=id")
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID")
 ```
 
+
+
 OUTER JOINS in SQL & R
 ========================================================
-
 ```{r}
 sql("SELECT * FROM dogs
 FULL OUTER JOIN owners on owner_id=id")
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all = TRUE)
 ```
 
+
+
 LEFT OUTER JOINS in SQL & R
 ========================================================
-
 ```{r}
 sql("SELECT * FROM dogs
 LEFT OUTER JOIN owners on owner_id=id")
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all.x = TRUE)
 ```
 
+
+
 RIGHT OUTER JOINS in SQL & R
 ========================================================
-
 ```{r}
 sql("SELECT * FROM dogs
 RIGHT OUTER JOIN owners on owner_id=id")
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all.y = TRUE)
 ```
 
+
+
 LEFT JOINS - INNER JOIN in SQL
 ========================================================
-
 ```{r}
 sql("SELECT * FROM dogs
 LEFT OUTER JOIN owners on owner_id=id
 WHERE owner_id is null")
 ```
 
+
+
 LEFT JOINS - INNER JOIN in R
 ========================================================
-
 ```{r}
 lj <- merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all.x = TRUE)
 ij <- merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID")
 lj[!duplicated(rbind(ij, lj))[-seq_len(nrow(ij))], ]
 ```
 
+
+
 RIGHT JOINS - INNER JOIN in SQL
 ========================================================
-
 ```{r}
 sql("SELECT * FROM dogs
 RIGHT OUTER JOIN owners on owner_id=id
 WHERE OWNER_ID is null")
 ```
 
+
+
 RIGHT JOINS - INNER JOIN in R
 ========================================================
-
 ```{r}
 rj <- merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all.y = TRUE)
 ij <- merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID")
 rj[!duplicated(rbind(ij, rj))[-seq_len(nrow(ij))], ]
 ```
 
+
+
 FULL OUTER JOIN in SQL
 ========================================================
-
 ```{r}
 sql("SELECT * FROM dogs
 FULL OUTER JOIN owners on owner_id=id")
 ```
 
+
+
 FULL OUTER JOIN in R
 ========================================================
-
 ```{r}
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all = TRUE)
 ```
 
+
+
 FULL OUTER JOIN - INNER JOIN in SQL
 ========================================================
-
 ```{r}
 sql("SELECT * FROM dogs
 FULL OUTER JOIN owners on owner_id=id
 WHERE owner_id is null or id is null")
 ```
 
+
+
 FULL OUTER JOIN - INNER JOIN in R
 ========================================================
-
 ```{r}
 fj <- merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all = TRUE)
 ij <- merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID")
 fj[!duplicated(rbind(ij, fj))[-seq_len(nrow(ij))], ]
 ```
 
+
+
 SQL Select Columns, R data frame
 ========================================================
-
 Select column operation called **project**
 
 >It’s an odd mistake of history that the traditional SQL SELECT is actually the PROJECT statement in relational algebra.
@@ -297,17 +327,19 @@ Select column operation called **project**
 sql("SELECT * FROM dogs"); dogs
 ```
 
+
+
 SQL Select Columns, R data frame by columne number or name
 ========================================================
-
 ```{r}
 sql("SELECT NAME FROM dogs"); dogs[1]
 dogs$NAME
 ```
 
+
+
 SQL Select Columns, R data frame by columne name
 ========================================================
-
 ```{r}
 sql("SELECT owner_id, name FROM dogs")
 ```
@@ -316,96 +348,98 @@ sql("SELECT owner_id, name FROM dogs")
 data.frame(owner_id=dogs$OWNER_ID, dog_name=dogs$NAME)
 ```
 
+
+
 SQL DISTINCT, R unique
 ========================================================
-
 ```{r}
 sql("SELECT DISTINCT owner_id FROM dogs")
 unique(dogs$OWNER_ID)
 ```
-
 ```{r eval=FALSE}
 unique(data.frame(dogs$OWNER_ID))
 unique(data.frame(dogs[,c("OWNER_ID","NAME")]))
 ```
 
+
+
 SQL ORDER BY, R order
 ========================================================
-
 ```{r}
 sql("SELECT * FROM dogs ORDER BY name")
 dogs[with(dogs,order(NAME)),]
 ```
-
 ```{r eval=FALSE}
 library(doBy);
 orderBy(~-OWNER_ID + NAME, data=dogs)
 ```
 
+
+
 SQL WHERE, R t/f vector and grep
 ========================================================
-
 ```{r}
 sql("SELECT * FROM dogs
  WHERE NAME like 'A%'")
 ```
-
 ```{r}
 ndx <- grep("^A", dogs$NAME); ndx
 dogs[grep("^A", dogs$NAME),]
 ```
 
+
+
 SQL function/express, R cbind
 ========================================================
-
 ```{r}
 sql("SELECT NAME,
 lower(NAME), substr(lower(NAME),1,1)
 FROM dogs")
 ```
-
 ```{r}
 data.frame(lowname=tolower(dogs$NAME)) -> lowname
 data.frame(fn=substr(lowname[,c(1)],1,1)) -> fn
 cbind(dogs[,c("NAME")],lowname, fn)
 ```
 
+
+
 SQL UNION ALL, R rbind
 ========================================================
-
 ```{r}
 sql("SELECT NAME, OWNER_ID FROM dogs WHERE NAME like 'A%'
  UNION ALL SELECT 'Wang Cai', 4 FROM DUAL")
 ```
-
 ```{r}
 rbind(dogs[ndx,],data.frame(NAME=c("Wang Cai"),OWNER_ID=c(4))) -> t
 rownames(t) <- NULL; t # reset the row name
 ```
 
+
+
 SQL GROUP BY, R aggregate
 ========================================================
-
 ```{r}
 sql("SELECT * FROM dogs RIGHT OUTER JOIN owners on owner_id=id")
 sql("SELECT owners.OWNER, count(dogs.NAME) FROM dogs RIGHT OUTER JOIN owners on owner_id=id GROUP BY owners.OWNER")
 ```
 
+
+
 SQL GROUP BY, R aggregate
 ========================================================
-
 ```{r}
 merge(x=dogs, y=owners, by.x="OWNER_ID", by.y="ID", all.y = TRUE) -> od;od
 aggregate(od$NAME, by=list(DogOwner=od$OWNER),FUN=function(x) sum(!is.na(x)))
 ```
-
 ```{r eval=FALSE}
 by(od$NAME,od$OWNER,function(x) sum(!is.na(x)))
 ```
 
+
+
 SQL HAVING, R still t/f vector 
 ========================================================
-
 ```{r}
 sql("SELECT owners.OWNER, count(dogs.NAME) FROM dogs RIGHT OUTER JOIN owners on owner_id=id GROUP BY owners.OWNER
 HAVING COUNT(dogs.NAME) > 1")
@@ -413,15 +447,17 @@ aggregate(od$NAME, by=list(DogOwner=od$OWNER),FUN=function(x) sum(!is.na(x))) ->
 oda[oda$x>1,]
 ```
 
-SQL JOIN subquery, R same function
-========================================================
 
+
+SQL JOIN with subquery, R same function
+========================================================
 - Too much declarative feature will make you learning curve unnecessary long
 - Too much imperative will make you working time unnecessary long
 - Too much object will lead combine exploration
 - Too much functional will lead…
   - No harmful [AFAIK](http://netforbeginners.about.com/od/a/f/What-Is-AFAIK.htm) at present, because it’s just math
-  - Hard to learn, maybe
+  - Hard to learn/express or not [scable](http://techsingular.net/?p=2300).
+
 
 
 Formal SQL syntax
@@ -437,9 +473,9 @@ ORDER BY sort_column1 [ASC | DESC],
 [SELECT clauses...]
 ```
 
+
 Summary of SQL and R
 ========================================================
-
 - Both functional, next **big** programming paradigms
 - Think in (from recommend to not prefer)
   - Whole (let other people do the job)
@@ -449,6 +485,8 @@ Summary of SQL and R
   - Imperative in detail
 - SQL is much more used than R, but learning R will make you a better SQL writer
 
+
+
 Further reading material
 ========================================================
 
@@ -457,7 +495,8 @@ Further reading material
 - Learning by doing
 - Think in functional and between declarative and imperative
 
+
+
 Thank you for your time
 ========================================================
-
 # <center>**Q&A**</center>

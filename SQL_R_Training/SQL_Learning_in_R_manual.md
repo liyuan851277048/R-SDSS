@@ -784,6 +784,108 @@ ORDER BY sort_column1 [ASC | DESC],
 
 
 
+Exercise/Demo Question
+========================================================
+- Which dog have no owner?
+- Who have no dog?
+- Who have at least one dog?
+- List the dogs name whose owner have at least two dog..
+
+
+Exercise/Demo Question 1
+========================================================
+- Which dog have no owner?
+
+```sql
+select * from DOGS t
+WHERE t.owner_id IS NULL
+```
+
+```r
+dogs[!is.na(dogs$OWNER_ID),]
+```
+
+
+Exercise/Demo Question 2
+========================================================
+- Who have no dog?
+
+```sql
+select * from OWNERS t
+WHERE t.id NOT IN
+  (SELECT owner_id FROM dogs)
+# why wrong?
+```
+
+```sql
+SELECT * FROM owners t
+MINUS
+select * from OWNERS t
+WHERE t.id IN
+  (SELECT owner_id FROM dogs)
+```
+
+```sql
+SELECT *
+FROM dogs d
+RIGHT JOIN owners o ON o.id=d.owner_id
+WHERE d.owner_id IS NULL
+```
+
+
+Exercise/Demo Question 3
+========================================================
+- Who have at least one dog?
+
+```sql
+SELECT *
+FROM owners o
+WHERE o.id IN (
+  SELECT owner_id FROM dogs
+  WHERE owner_id IS NOT NULL
+  )
+```
+
+```sql
+SELECT *
+FROM dogs d
+INNER JOIN owners o ON o.id=d.owner_id
+```
+
+
+Exercise/Demo Question 4
+========================================================
+- List the dogs name whose owner have at least two dog.
+
+```sql
+SELECT *
+FROM dogs o
+WHERE o.owner_id IN (
+  SELECT t.id
+  FROM (
+     SELECT o.id, count(d.name)
+     FROM dogs d
+     INNER JOIN owners o ON o.id=d.owner_id
+     HAVING count(d.name) = 2
+     GROUP BY o.id
+     ) t
+  )
+```
+
+```sql
+SELECT *
+FROM dogs o
+WHERE o.owner_id IN (
+   SELECT o.id
+   FROM dogs d
+   INNER JOIN owners o ON o.id=d.owner_id
+   HAVING count(d.name) = 2
+   GROUP BY o.id
+)
+```
+
+
+
 Summary of SQL and R
 ========================================================
 - Both functional, next **big** programming paradigms

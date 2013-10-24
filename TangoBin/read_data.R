@@ -14,5 +14,11 @@ SELECT t.op_name,t.test_round,t.test_pg,max(t.pass_cnt+t.fail_cnt) over(PARTITIO
 tb <- fetch(dbSendQuery(con,sql_text), n= -1)
 tm <- melt(tb, id=c("OP_NAME","TEST_ROUND","TEST_PG","INQTY","OFFSET","OBJECT_ID"))
 tm <- tm[tm$variable != "DATA_TYPE",]
+tm <- tm[tm$value != 0,]
 tm <- cbind(tm, low_bin=substring(tm$variable,first=4,last=nchar(as.character(tm$variable))))
 tm <- cbind(tm, softbin=as.character.hexmode(as.numeric(tm$OFFSET)*100+as.numeric(tm$low_bin)))
+tm$OFFSET <- NULL
+tm$OBJECT_ID <- NULL
+tm$variable <- NULL
+tm$low_bin <- NULL
+tc <- dcast(OP_NAME + TEST_PG + INQTY + softbin ~ TEST_ROUND, data = tm, value.var = "value")

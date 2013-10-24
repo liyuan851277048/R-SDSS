@@ -35,7 +35,7 @@ shinyServer(function(input, output) {
   
   # Generate an HTML table view of the data
   output$table <- renderTable({
-    data.frame(x=data())
+    data.frame(data())
   })
   
 })

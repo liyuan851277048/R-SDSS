@@ -1,15 +1,15 @@
 library(ROracle)
 library(reshape2)
-con <- dbConnect(dbDriver("Oracle"), 
-                 username="tango_read", 
-                 password="tango_read", 
+con <- dbConnect(dbDriver("Oracle"),
+                 username="tango_read",
+                 password="tango_read",
                  dbname="TANGO_PROD.SDCORP.GLOBAL.SANDISK.COM")
 
 fetchTangoBinViaBb <- function(mes_lot, con) {
   sql_text = paste("
 SELECT t.op_name,t.test_round,t.test_pg,max(t.pass_cnt+t.fail_cnt) over(PARTITION BY t.test_pg) as InQTY,r.*
   FROM TANGO.FTTESTINFO t,TANGO.FTTESTSUM r
- WHERE t.object_id = r.object_id 
+ WHERE t.object_id = r.object_id
    AND data_type='CAT'
    AND t.lot_id='",mes_lot,"'",sep='')
 

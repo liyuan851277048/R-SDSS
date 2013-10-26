@@ -12,6 +12,10 @@ SELECT t.op_name,t.test_round,t.test_pg,max(t.pass_cnt+t.fail_cnt) over(PARTITIO
    AND t.lot_id='M1341M42ED.02'
 "
 tb <- fetch(dbSendQuery(con,sql_text), n= -1)
+tb$OP_NAME <- as.factor(tb$OP_NAME)
+tb$TEST_ROUND <- as.factor(tb$TEST_ROUND)
+tb$TEST_PG <- as.factor(tb$TEST_PG)
+tb$OP_NAME <- as.factor(tb$OP_NAME)
 tm <- melt(tb, id=c("OP_NAME","TEST_ROUND","TEST_PG","INQTY","OFFSET","OBJECT_ID"))
 tm <- tm[tm$variable != "DATA_TYPE",]
 tm <- tm[tm$value != 0,]
@@ -21,4 +25,5 @@ tm$OFFSET <- NULL
 tm$OBJECT_ID <- NULL
 tm$variable <- NULL
 tm$low_bin <- NULL
+tm$value <- as.numeric(tm$value)
 tc <- dcast(OP_NAME + TEST_PG + INQTY + softbin ~ TEST_ROUND, data = tm, value.var = "value")

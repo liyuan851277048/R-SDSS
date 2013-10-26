@@ -11,6 +11,11 @@ shinyUI(pageWithSidebar(
   # element to introduce extra vertical spacing
   sidebarPanel(
     textInput("meslot", "Lot:", "M1341M42ED.02"),
+    sliderInput("filter_num", 
+                "Crop bin number less than", 
+                min = 0,
+                max = 7, 
+                value = 1),    
     h6(a("see application src", 
          href="http://cvpscmip01/R-SDSS.git/tree/HEAD:/TangoBin",
          target="_blank"))

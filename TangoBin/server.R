@@ -23,7 +23,7 @@ shinyServer(function(input, output) {
     tb <- fetch(dbSendQuery(con,sql_text), n= -1)
     tm <- melt(tb, id=c("OP_NAME","TEST_ROUND","TEST_PG","INQTY","OFFSET","OBJECT_ID"))
     tm <- tm[tm$variable != "DATA_TYPE",]
-    tm <- tm[tm$value != 0,]
+    tm <- tm[tm$value >= input$filter_num,]
     tm <- cbind(tm, low_bin=substring(tm$variable,first=4,last=nchar(as.character(tm$variable))))
     tm <- cbind(tm, softbin=as.character.hexmode(as.numeric(tm$OFFSET)*100+as.numeric(tm$low_bin)))
     tm$OFFSET <- NULL

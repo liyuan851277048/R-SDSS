@@ -19,6 +19,14 @@ shinyServer(function(input, output) {
     buildTangoBinDataFrame(fetchTangoBinViaBb(input$meslot,con),input$filter_num)
   })
   
+  # Generate a summary of the dataset
+  output$summary <- renderPrint({
+    d <- data()
+    d$OP_NAME <- NULL
+    d$INQTY <- NULL
+    summary(d)
+  })  
+  
   # Generate an HTML table view of the data
   output$table <- renderTable({
     data.frame(data())

@@ -32,7 +32,7 @@ buildTangoBinDataFrame <- function(tb, filter_num) {
   tm$OBJECT_ID <- NULL
   tm$variable <- NULL
   tm$low_bin <- NULL
-  tm$value <- as.numeric(tm$value)
+  tm$value <- as.integer(tm$value)
   dcast(OP_NAME + TEST_PG + INQTY + softbin ~ TEST_ROUND, data = tm, value.var = "value")
 }
 

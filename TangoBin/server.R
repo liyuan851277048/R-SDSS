@@ -24,6 +24,7 @@ shinyServer(function(input, output) {
     d <- data()
     d$OP_NAME <- NULL
     d$INQTY <- NULL
+    options(digits=0)
     summary(d)
   })
 

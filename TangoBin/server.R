@@ -1,6 +1,7 @@
 library(ROracle)
 library(reshape2)
 library(shiny)
+library(stringr)
 
 con <- dbConnect(dbDriver("Oracle"),
                  username="tango_read",
@@ -16,7 +17,7 @@ shinyServer(function(input, output) {
   # called whenever the inputs change. The output functions defined
   # below then all use the value computed from this expression
   data <- reactive({
-    buildTangoBinDataFrame(fetchTangoBinViaBb(input$meslot,con),input$filter_num)
+    buildTangoBinDataFrame(fetchTangoBinViaBb(str_trim(input$meslot),con),input$filter_num)
   })
 
   # Generate a summary of the dataset

@@ -27,7 +27,7 @@ buildTangoBinDataFrame <- function(tb, filter_num) {
   tm <- transform(tm, low_bin=substring(variable,first=4,last=nchar(as.character(variable))))
   tm <- transform(tm, softbin=as.character.hexmode(as.numeric(OFFSET)*100+as.numeric(low_bin)))
   tm <- subset(tm, select = -c(OFFSET,OBJECT_ID,variable,low_bin))
-  dcast(OP_NAME + TEST_PG + INQTY + softbin ~ TEST_ROUND, data = tm, value.var = "value")
+  dcast(OP_NAME + TEST_PG + INQTY + softbin ~ TEST_ROUND, data = tm, value.var = "value", fun.aggregate=sum)
 }
 
 tb <- fetchTangoBinViaBb("M1341M42ED.02",con)

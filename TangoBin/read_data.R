@@ -14,12 +14,11 @@ SELECT t.op_name,t.test_round,t.test_pg,max(t.pass_cnt+t.fail_cnt) over(PARTITIO
    AND t.lot_id='",mes_lot,"'",sep='')
 
   tb <- fetch(dbSendQuery(con,sql_text), n= -1)
-  tb$OP_NAME <- as.factor(tb$OP_NAME)
-  tb$TEST_ROUND <- as.factor(tb$TEST_ROUND)
-  tb$TEST_PG <- as.factor(tb$TEST_PG)
-  tb$INQTY <- as.factor(tb$INQTY)
-  tb$OP_NAME <- as.factor(tb$OP_NAME)
-  tb
+  transform(tb, list(OP_NAME=as.factor(tb$OP_NAME),
+                  TEST_ROUND=as.factor(tb$TEST_ROUND),
+                     TEST_PG=as.factor(tb$TEST_PG),
+                       INQTY=as.factor(tb$INQTY),
+                     OP_NAME=as.factor(tb$OP_NAME)))
 }
 
 buildTangoBinDataFrame <- function(tb, filter_num) {

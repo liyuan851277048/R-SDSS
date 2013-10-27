@@ -22,7 +22,7 @@ SELECT t.op_name,t.test_round,t.test_pg,max(t.pass_cnt+t.fail_cnt) over(PARTITIO
 
 buildTangoBinDataFrame <- function(tb, filter_num) {
   tm <- melt(tb, id=c("OP_NAME","TEST_ROUND","TEST_PG","INQTY","OFFSET","OBJECT_ID"))
-  tm <- tm[tm$variable != "DATA_TYPE" & tm$value >= filter_num, ]
+  tm <- tm[tm$variable != "DATA_TYPE" & suppressWarnings(as.integer(tm$value)) >= filter_num, ]
   tm$value <- as.integer(tm$value)
   tm <- transform(tm, low_bin=substring(variable,first=4,last=nchar(as.character(variable))))
   tm <- transform(tm, softbin=as.character.hexmode(as.numeric(OFFSET)*100+as.numeric(low_bin)))

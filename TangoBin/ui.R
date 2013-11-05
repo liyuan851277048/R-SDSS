@@ -4,7 +4,7 @@ library(shiny)
 shinyUI(pageWithSidebar(
 
   # Application title
-  headerPanel("Tango Bin Query in R Shiny platform"),
+  headerPanel("Tango Bin Query in R & Package Shiny"),
 
   # Sidebar with controls to select the random distribution type
   # and number of observations to generate. Note the use of the br()

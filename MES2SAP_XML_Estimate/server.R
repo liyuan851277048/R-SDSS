@@ -14,11 +14,11 @@ shinyServer(function(input, output) {
   
   output$rechartPie1 <- renderEcharts({
     recharts.init()	    
-    ePie(datasetInput()[[1]])
+    ePie(datasetInput()[[1]], main=paste("Sent XML files by PNLevel in",input$dayN,"days"), type="pie")
   })
 
   output$rechartPie2 <- renderEcharts({
     recharts.init()      
-    ePie(datasetInput()[[2]])
+    ePie(datasetInput()[[2]], main="Largest PN Level by Product Category", type="rose", roseType="area")
   })
 })

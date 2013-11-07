@@ -17,6 +17,7 @@ shinyUI(pageWithSidebar(
   
   mainPanel(
     includeHTML(recharts.shiny.init()),
-    htmlOutput("rechartPie")
+    htmlOutput("rechartPie1"),
+    htmlOutput("rechartPie2")
   )
 ))

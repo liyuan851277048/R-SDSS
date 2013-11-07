@@ -12,8 +12,13 @@ shinyServer(function(input, output) {
     x  <- preparePieData(pd)
   })
   
-  output$rechartPie <- renderEcharts({
+  output$rechartPie1 <- renderEcharts({
     recharts.init()	    
-    ePie(datasetInput())
+    ePie(datasetInput()[[1]])
+  })
+
+  output$rechartPie2 <- renderEcharts({
+    recharts.init()      
+    ePie(datasetInput()[[2]])
   })
 })

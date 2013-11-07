@@ -7,12 +7,14 @@ intd_con <- dbConnect(dbDriver("Oracle"),
 fetchMESSentData <- function(intd_con, day) {
   sql_text = paste("
   select b.txndatetime, b.ordername, ptl.productlevelname PNLevel, b.processtype, b.product, b.txnname,
-         d.transactionid, d.bincategory, d.saplocation, d.qty, d.rejectcode, d.specname Step, d.lotname,b.recid,d.labelid
+         d.transactionid, d.bincategory, d.saplocation, d.qty, d.rejectcode, d.specname Step, d.lotname,
+         b.recid, d.labelid, pc.packagecategoryname
   from sap_basic b
   LEFT JOIN sap_details d ON d.recid=b.recid
   LEFT JOIN productbase ptb ON ptb.productname=b.product
   LEFT JOIN product pt ON pt.productid=ptb.revofrcdid
   LEFT JOIN a_productlevel ptl ON ptl.productlevelid=pt.productlevelid
+  LEFT JOIN a_packagecategory pc on pc.packagecategoryid=pt.packagecategoryid
   WHERE b.txndatetime > SYSDATE - ",day,sep="")
   
   tb <- fetch(dbSendQuery(intd_con,sql_text), n= -1)

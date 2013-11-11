@@ -9,3 +9,6 @@ ftpsync.settings
 # ignore homework generated temp file
 ch2_6_stu.*
 *-figure
+*.xlsx
+*.csv
+*.RData

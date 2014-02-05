@@ -1,4 +1,5 @@
 library(ROracle)
+library(reshape2)
 intd_con <- dbConnect(dbDriver("Oracle"),
                       username="insitetapintd",
                       password="insitetapintd",
@@ -24,4 +25,11 @@ ORDER BY hml.txndate DESC
 
 pd <- fetchMESData(intd_con)
 tm <- melt(pd, id=c("CONTAINERNAME","CALLBYCDONAME","QTY","PACKAGECATEGORYNAME","PRODUCTNAME","FROMSPECNAME"))
+tm$value <- as.POSIXct(as.integer(tm$value)+60*60*8, origin = "1970-01-01", tz = "")
 dc <- dcast(CONTAINERNAME + CALLBYCDONAME + QTY + PACKAGECATEGORYNAME + PRODUCTNAME ~ FROMSPECNAME, data = tm, value.var = "value", fun.aggregate=max)
+dc[,c(6)] <- as.POSIXct(as.integer(dc[,c(6)])+60*60*8, origin = "1970-01-01", tz = "")
+dc[,c(7)] <- as.POSIXct(as.integer(dc[,c(7)])+60*60*8, origin = "1970-01-01", tz = "")
+dc[,c(8)] <- as.POSIXct(as.integer(dc[,c(8)])+60*60*8, origin = "1970-01-01", tz = "")
+dc[,c(9)] <- as.POSIXct(as.integer(dc[,c(9)])+60*60*8, origin = "1970-01-01", tz = "")
+
+write.csv(dc,'dc.csv')
